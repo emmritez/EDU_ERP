@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHIKSHA Unified — EDU_ERP Mobile</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#2563eb">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html, body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; max-width: 100vw; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col pb-20">
+
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur border-b border-slate-800 px-3.5 py-2.5 flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+            <div class="w-9 h-9 rounded-xl bg-blue-600 text-white font-extrabold flex items-center justify-center shrink-0">S</div>
+            <div class="truncate">
+                <h1 class="text-sm font-black text-white truncate">SHIKSHA Unified</h1>
+                <div class="flex items-center gap-1.5">
+                    <select id="m-role-select" onchange="onMobileRoleChange(this.value)" class="bg-slate-800 text-[10px] font-bold text-blue-300 rounded px-1.5 py-0.5 border border-slate-700">
+                        <option value="admin">Admin</option>
+                        <option value="teacher">Teacher</option>
+                        <option value="parent">Student</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" onclick="syncMobileNow()" class="text-[11px] font-bold bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-slate-700 px-2.5 py-1.5 rounded-xl flex items-center gap-1 shrink-0">
+            <i id="sync-icon-mobile" class="fa-solid fa-rotate text-[10px]"></i>
+            <span>Sync</span>
+            <span id="outbox-badge-mobile" class="bg-amber-500 text-slate-950 font-black px-1.5 rounded-full text-[10px]">0</span>
+        </button>
+    </header>
+
+    <div id="mobile-status-msg" class="hidden mx-3.5 mt-3 p-2.5 rounded-xl text-xs font-bold bg-emerald-950/90 border border-emerald-700 text-emerald-200"></div>
+
+    <main class="flex-1 px-3.5 py-3 space-y-4 max-w-2xl w-full mx-auto">
+
+        <!-- HOME & STUDENTS -->
+        <section id="tab-home" class="mob-tab space-y-3">
+            <div class="grid grid-cols-2 gap-2.5">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3">
+                    <span class="text-[11px] text-slate-400 font-bold">Students</span>
+                    <div id="m-stat-students" class="text-xl font-black text-white">0</div>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3">
+                    <span class="text-[11px] text-slate-400 font-bold">Present Today</span>
+                    <div id="m-stat-present" class="text-xl font-black text-emerald-400">0</div>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-slate-200">Add Student</h3>
+                <input type="text" id="m-stu-name" placeholder="Student Name" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="m-stu-class" placeholder="Class (e.g. 8th)" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                    <input type="number" id="m-stu-fee" placeholder="Fee (Rs)" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                </div>
+                <input type="tel" id="m-stu-phone" placeholder="Mobile" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <button type="button" onclick="addMobileStudent()" class="w-full py-2 bg-blue-600 text-white font-extrabold rounded-xl text-xs">Save Student</button>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-slate-200">Students &amp; Behavior</h3>
+                <div id="m-students-list" class="space-y-2"></div>
+            </div>
+        </section>
+
+        <!-- ATTENDANCE (P / A / L) -->
+        <section id="tab-attendance" class="mob-tab hidden space-y-3">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 flex items-center justify-between">
+                <div>
+                    <h2 class="text-sm font-black text-white">Attendance (P / A / L)</h2>
+                    <p id="m-att-date-label" class="text-[11px] text-slate-400"></p>
+                </div>
+                <button type="button" onclick="saveMobileAttendance()" class="bg-emerald-600 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl">Save</button>
+            </div>
+            <div id="m-att-list" class="space-y-2"></div>
+        </section>
+
+        <!-- DIARY: HOMEWORK, TIMETABLE & LEAVES -->
+        <section id="tab-diary" class="mob-tab hidden space-y-3">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-blue-400">Homework</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="m-hw-class" placeholder="Class" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                    <input type="text" id="m-hw-subject" placeholder="Subject" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                </div>
+                <input type="text" id="m-hw-title" placeholder="Homework Title" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <button type="button" onclick="addMobileHomework()" class="w-full py-2 bg-blue-600 text-white font-bold rounded-xl text-xs">Post Homework</button>
+                <div id="m-hw-list" class="space-y-1.5 pt-1"></div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-amber-400">Timetable / PTM</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="m-tt-class" placeholder="Class" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                    <input type="text" id="m-tt-day" placeholder="Day (e.g. Monday)" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                </div>
+                <input type="text" id="m-tt-subject" placeholder="Subject / PTM" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <button type="button" onclick="addMobileTimetable()" class="w-full py-2 bg-amber-600 text-white font-bold rounded-xl text-xs">Add Slot</button>
+                <div id="m-tt-list" class="space-y-1.5 pt-1"></div>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-emerald-400">Leave Requests</h3>
+                <input type="text" id="m-lv-reason" placeholder="Leave reason..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <button type="button" onclick="addMobileLeave()" class="w-full py-2 bg-emerald-600 text-white font-bold rounded-xl text-xs">Submit Leave</button>
+                <div id="m-lv-list" class="space-y-1.5 pt-1"></div>
+            </div>
+        </section>
+
+        <!-- MORE: AI TESTS, CHAT, NOTES & GALLERY -->
+        <section id="tab-more" class="mob-tab hidden space-y-3">
+            <!-- AI TEST -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-indigo-400">AI / Text MCQ Test</h3>
+                <input type="text" id="m-ai-topic" placeholder="Topic (e.g. Force and Laws)" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="m-ai-class" placeholder="Class (e.g. 9th)" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                    <input type="password" id="m-ai-key" placeholder="Gemini API Key (Optional)" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                </div>
+                <textarea id="m-ai-raw" rows="2" placeholder="Optional: Paste MCQ text here..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white"></textarea>
+                <button type="button" onclick="createMobileAiTest()" class="w-full py-2 bg-indigo-600 text-white font-bold rounded-xl text-xs">Generate &amp; Publish Test</button>
+                <div id="m-tests-list" class="space-y-1.5 pt-1"></div>
+            </div>
+
+            <!-- CHAT -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-sky-400">Teacher–Student Chat</h3>
+                <div class="flex gap-2">
+                    <input type="text" id="m-chat-input" placeholder="Type message..." class="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                    <button type="button" onclick="sendMobileChat()" class="px-3.5 py-2 bg-sky-600 text-white font-bold rounded-xl text-xs">Send</button>
+                </div>
+                <div id="m-chat-list" class="space-y-1.5 max-h-40 overflow-y-auto pt-1"></div>
+            </div>
+
+            <!-- NOTES & GALLERY -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-2">
+                <h3 class="text-xs font-black uppercase text-teal-400">Study Notes &amp; Gallery</h3>
+                <input type="text" id="m-note-title" placeholder="Note or Gallery Title" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <input type="text" id="m-note-link" placeholder="Drive / Image URL" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
+                <div class="grid grid-cols-2 gap-2">
+                    <button type="button" onclick="addMobileNote()" class="py-2 bg-teal-600 text-white font-bold rounded-xl text-xs">Add Note</button>
+                    <button type="button" onclick="addMobileGallery()" class="py-2 bg-purple-600 text-white font-bold rounded-xl text-xs">Add Gallery</button>
+                </div>
+                <div id="m-notes-gallery-list" class="space-y-1.5 pt-1"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 bg-slate-900 border-t border-slate-800 h-16 flex items-center justify-around px-1">
+        <button type="button" onclick="switchMobileTab('home')" id="mnav-home" class="mnav-btn flex flex-col items-center text-blue-400 text-[10px] font-extrabold">
+            <i class="fa-solid fa-house text-sm mb-0.5"></i><span>Home</span>
+        </button>
+        <button type="button" onclick="switchMobileTab('attendance')" id="mnav-attendance" class="mnav-btn flex flex-col items-center text-slate-400 text-[10px] font-bold">
+            <i class="fa-solid fa-calendar-check text-sm mb-0.5"></i><span>Attend</span>
+        </button>
+        <button type="button" onclick="switchMobileTab('diary')" id="mnav-diary" class="mnav-btn flex flex-col items-center text-slate-400 text-[10px] font-bold">
+            <i class="fa-solid fa-book-open text-sm mb-0.5"></i><span>Diary</span>
+        </button>
+        <button type="button" onclick="switchMobileTab('more')" id="mnav-more" class="mnav-btn flex flex-col items-center text-slate-400 text-[10px] font-bold">
+            <i class="fa-solid fa-layer-group text-sm mb-0.5"></i><span>More</span>
+        </button>
+    </nav>
+
+    <script type="module">
+        import {
+            mfReadCol,
+mfWriteCol,
+            mfActiveRows,
+            mfUpsert,
+            setActiveEduRole,
+            getActiveEduRole,
+            addBehaviorRemark,
+            generateAiMcqs,
+            publishOnlineTest,
+            sendDirectChat,
+            addTimetableSlot,
+            createLeaveApplication,
+            reviewLeaveApplication,
+            addStudyNote,
+            addGalleryMedia
+        } from "../shared/merged-features.js";
+
+        const SHIKSHA_UNIFIED_URL =
+            "https://script.google.com/macros/s/AKfycbwkUDVo7oMZ0K_MR6RLoUu5d9tMiXU358cfPesCIEXQVHCsGyUZVbbgcDfLK9qsHeRm_w/exec";
+        const NS = "edu_erp_v1";
+
+        function setText(id, v) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = String(v ?? "");
+        }
+
+        function setBanner(msg, isErr = false) {
+            const el = document.getElementById("mobile-status-msg");
+            if (!el) return;
+            el.textContent = msg;
+            el.className = isErr
+                ? "mx-3.5 mt-3 p-2.5 rounded-xl text-xs font-bold bg-rose-950/90 border border-rose-700 text-rose-200"
+                : "mx-3.5 mt-3 p-2.5 rounded-xl text-xs font-bold bg-emerald-950/90 border border-emerald-700 text-emerald-200";
+            el.classList.remove("hidden");
+        }
+
+        function todayKey() {
+            return new Date().toISOString().slice(0, 10);
+        }
+
+        function esc(v) {
+            return String(v ?? "").replace(/[&<>"']/g, (c) => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
+        }
+
+        window.onMobileRoleChange = function (r) {
+            setActiveEduRole(r);
+            renderAll();
+            setBanner(`Role switched to ${r.toUpperCase()}`);
+        };
+
+        window.switchMobileTab = function (tab) {
+            document.querySelectorAll(".mob-tab").forEach((s) => s.classList.add("hidden"));
+            document.getElementById("tab-" + tab)?.classList.remove("hidden");
+            document.querySelectorAll(".mnav-btn").forEach((b) => {
+                b.classList.remove("text-blue-400", "font-extrabold");
+                b.classList.add("text-slate-400", "font-bold");
+            });
+            const btn = document.getElementById("mnav-" + tab);
+            if (btn) {
+                btn.classList.remove("text-slate-400", "font-bold");
+                btn.classList.add("text-blue-400", "font-extrabold");
+            }
+            renderAll();
+        };
+
+        function renderAll() {
+            const { role } = getActiveEduRole();
+            const roleSel = document.getElementById("m-role-select");
+            if (roleSel) roleSel.value = role;
+
+            const students = mfActiveRows("students");
+            const att = mfActiveRows("attendance");
+            const hw = mfActiveRows("homework");
+            const tt = mfActiveRows("timetable");
+            const lv = mfActiveRows("leaves");
+            const tests = mfActiveRows("online_tests");
+            const chats = mfActiveRows("chat_messages");
+            const notes = mfActiveRows("materials");
+            const gallery = mfActiveRows("gallery");
+            const behaviors = mfActiveRows("behavior_logs");
+
+            let outbox = [];
+            try { outbox = JSON.parse(localStorage.getItem(NS + "_outbox") || "[]"); } catch (_) {}
+
+            const tKey = todayKey();
+            const todayAtt = att.filter((a) => String(a.att_date) === tKey);
+            setText("m-stat-students", students.length);
+            setText("m-stat-present", todayAtt.filter((a) => a.status === "P").length);
+            setText("outbox-badge-mobile", outbox.length);
+            setText("m-att-date-label", "Date: " + tKey);
+
+            // Students + Green/Red Behavior
+            document.getElementById("m-students-list").innerHTML = students.length
+                ? students.map((s) => {
+                    const sBeh = behaviors.filter((b) => String(b.studentId) === String(s.id));
+                    const g = sBeh.filter((b) => b.flag === "green").length;
+                    const r = sBeh.filter((b) => b.flag === "red").length;
+                    return `
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 flex items-center justify-between gap-2">
+                            <div class="min-w-0">
+                                <div class="text-xs font-extrabold text-white truncate">${esc(s.full_name || s.name)} <span class="text-[10px] text-blue-400">(${esc(s.id)})</span></div>
+                                <div class="text-[10px] text-slate-400">Class ${esc(s.student_class || s.class || "-")} • <span class="text-emerald-400">${g}G</span> / <span class="text-rose-400">${r}R</span></div>
+                            </div>
+                            <div class="flex gap-1 shrink-0">
+                                <button type="button" onclick="markBeh('${esc(s.id)}','${esc(s.full_name || s.name)}','green')" class="px-2 py-1 rounded bg-emerald-950 text-emerald-300 border border-emerald-700 text-[10px] font-bold">+G</button>
+                                <button type="button" onclick="markBeh('${esc(s.id)}','${esc(s.full_name || s.name)}','red')" class="px-2 py-1 rounded bg-rose-950 text-rose-300 border border-rose-700 text-[10px] font-bold">+R</button>
+                            </div>
+                        </div>
+                    `;
+                }).join("")
+                : `<p class="text-xs text-slate-400">No students yet.</p>`;
+
+            // Attendance
+            const attMap = new Map(todayAtt.map((a) => [String(a.student_id), a.status]));
+            document.getElementById("m-att-list").innerHTML = students.map((s) => {
+                const cur = attMap.get(String(s.id)) || "A";
+                return `
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-2.5 flex items-center justify-between" data-stuid="${esc(s.id)}">
+                        <div class="text-xs font-bold text-white truncate">${esc(s.full_name || s.name)}</div>
+                        <div class="flex gap-2 text-xs font-black">
+                            <label><input type="radio" name="matt_${esc(s.id)}" value="P" ${cur === "P" ? "checked" : ""}> P</label>
+                            <label><input type="radio" name="matt_${esc(s.id)}" value="A" ${cur === "A" ? "checked" : ""}> A</label>
+                            <label><input type="radio" name="matt_${esc(s.id)}" value="L" ${cur === "L" ? "checked" : ""}> L</label>
+                        </div>
+                    </div>
+                `;
+            }).join("") || `<p class="text-xs text-slate-400">Add students first.</p>`;
+
+            // Homework, Timetable, Leaves
+            document.getElementById("m-hw-list").innerHTML = hw.map((h) => `<div class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs"><b>Class ${esc(h.class)} • ${esc(h.subject)}:</b> ${esc(h.title)}</div>`).join("");
+            document.getElementById("m-tt-list").innerHTML = tt.map((t) => `<div class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs"><b>${esc(t.day)} (Class ${esc(t.class)}):</b> ${esc(t.subject)}</div>`).join("");
+            document.getElementById("m-lv-list").innerHTML = lv.map((l) => `
+                <div class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs flex items-center justify-between gap-2">
+                    <span class="truncate">${esc(l.reason)} <b>[${esc(l.status)}]</b></span>
+                    ${role !== "parent" && l.status === "Pending" ? `<button type="button" onclick="approveLv('${esc(l.id)}','Approved')" class="px-2 py-0.5 bg-emerald-700 text-white rounded text-[10px]">Approve</button>` : ""}
+                </div>
+            `).join("");
+
+            // Tests, Chat, Notes & Gallery
+            document.getElementById("m-tests-list").innerHTML = tests.map((t) => `<div class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs"><b>${esc(t.title)}</b> (${(t.questions || []).length} Qs)</div>`).join("");
+            document.getElementById("m-chat-list").innerHTML = chats.slice(0, 15).map((c) => `<div class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs"><b>${esc(c.senderName)}:</b> ${esc(c.text)}</div>`).join("");
+            document.getElementById("m-notes-gallery-list").innerHTML = [
+                ...notes.map((n) => `<div class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs text-teal-300">[Note] ${esc(n.title)}</div>`),
+                ...gallery.map((g) => `<div class="bg-slate-950 border border-slate-800 rounded-lg p-2 text-xs text-purple-300">[Gallery] ${esc(g.title)}</div>`)
+            ].join("");
+        }
+
+        window.addMobileStudent = function () {
+            const name = (document.getElementById("m-stu-name")?.value || "").trim();
+            const cls = (document.getElementById("m-stu-class")?.value || "").trim();
+            const fee = Number(document.getElementById("m-stu-fee")?.value || 0);
+            const phone = (document.getElementById("m-stu-phone")?.value || "").trim();
+            if (!name || !cls) return setBanner("Name aur Class bharein.", true);
+            const id = "EDU-" + new Date().getFullYear() + "-" + String(Date.now()).slice(-4);
+            mfUpsert("students", { id, reg_no: id, full_name: name, name, student_class: cls, class: cls, monthly_fee: fee, fee_pending: fee, phone, status: "Active" });
+            document.getElementById("m-stu-name").value = "";
+            document.getElementById("m-stu-class").value = "";
+            document.getElementById("m-stu-fee").value = "";
+            document.getElementById("m-stu-phone").value = "";
+            renderAll();
+            setBanner(`Student ${name} (${id}) added.`);
+        };
+
+        window.markBeh = function (studentId, studentName, flag) {
+            const reason = prompt(`Enter ${flag.toUpperCase()} behavior reason for ${studentName}:`) || "";
+            const { role } = getActiveEduRole();
+            addBehaviorRemark({ studentId, studentName, flag, reason, teacherName: role.toUpperCase() });
+            renderAll();
+            setBanner(`${flag.toUpperCase()} remark saved for ${studentName}.`);
+        };
+
+        window.saveMobileAttendance = function () {
+            const dt = todayKey();
+            document.querySelectorAll("#m-att-list [data-stuid]").forEach((card) => {
+                const sid = card.dataset.stuid;
+                const sel = card.querySelector(`input[name="matt_${sid}"]:checked`);
+                mfUpsert("attendance", { id: `ATT-${sid}-${dt}`, student_id: sid, att_date: dt, status: sel ? sel.value : "A" });
+            });
+            renderAll();
+            setBanner("Attendance saved.");
+        };
+
+        window.addMobileHomework = function () {
+            const cls = (document.getElementById("m-hw-class")?.value || "").trim();
+            const subject = (document.getElementById("m-hw-subject")?.value || "").trim();
+            const title = (document.getElementById("m-hw-title")?.value || "").trim();
+            if (!cls || !subject || !title) return;
+            mfUpsert("homework", { id: "HW-" + Date.now(), class: cls, subject, title, createdAt: new Date().toISOString() });
+            document.getElementById("m-hw-title").value = "";
+            renderAll();
+            setBanner("Homework posted.");
+        };
+
+        window.addMobileTimetable = function () {
+            const cls = (document.getElementById("m-tt-class")?.value || "").trim();
+            const day = (document.getElementById("m-tt-day")?.value || "Monday").trim();
+            const subject = (document.getElementById("m-tt-subject")?.value || "").trim();
+            if (!cls || !subject) return;
+            addTimetableSlot({ cls, day, startTime: "16:00", endTime: "17:00", subject });
+            document.getElementById("m-tt-subject").value = "";
+            renderAll();
+            setBanner("Timetable slot added.");
+        };
+
+        window.addMobileLeave = function () {
+            const reason = (document.getElementById("m-lv-reason")?.value || "").trim();
+            if (!reason) return;
+            createLeaveApplication({ studentId: "STU-GENERAL", studentName: "Student", cls: "General", fromDate: todayKey(), toDate: todayKey(), reason });
+            document.getElementById("m-lv-reason").value = "";
+            renderAll();
+            setBanner("Leave request submitted.");
+        };
+
+        window.approveLv = function (id, st) {
+            reviewLeaveApplication(id, st, "Admin");
+            renderAll();
+        };
+
+        window.createMobileAiTest = async function () {
+            const topic = (document.getElementById("m-ai-topic")?.value || "").trim();
+            const cls = (document.getElementById("m-ai-class")?.value || "8th").trim();
+            const apiKey = (document.getElementById("m-ai-key")?.value || "").trim();
+            const rawText = (document.getElementById("m-ai-raw")?.value || "").trim();
+            const qs = await generateAiMcqs({ apiKey, topic, cls, subject: "General", rawText, count: 10 });
+            publishOnlineTest({ title: topic || "AI Practice Test", cls, subject: "General", duration: 30, questions: qs });
+            renderAll();
+            setBanner(`Test published with ${qs.length} questions.`);
+        };
+
+        window.sendMobileChat = function () {
+            const inp = document.getElementById("m-chat-input");
+            const txt = (inp?.value || "").trim();
+            if (!txt) return;
+            const { role } = getActiveEduRole();
+            sendDirectChat({ studentId: "GENERAL", studentName: "Student", teacherPhone: "FACULTY", senderRole: role, senderName: role.toUpperCase(), text: txt });
+            inp.value = "";
+            renderAll();
+        };
+
+        window.addMobileNote = function () {
+            const title = (document.getElementById("m-note-title")?.value || "").trim();
+            const link = (document.getElementById("m-note-link")?.value || "https://drive.google.com").trim();
+            if (!title) return;
+            addStudyNote({ title, cls: "All", subject: "General", link });
+            renderAll();
+            setBanner("Study note added.");
+        };
+
+        window.addMobileGallery = function () {
+            const title = (document.getElementById("m-note-title")?.value || "").trim();
+            const url = (document.getElementById("m-note-link")?.value || "").trim();
+            if (!title) return;
+            addGalleryMedia({ folder: "SHIKSHA Campus", title, type: "photo", url, privacy: "coaching" });
+            renderAll();
+            setBanner("Gallery item added.");
+        };
+
+        window.syncMobileNow = async function () {
+            const icon = document.getElementById("sync-icon-mobile");
+            if (icon) icon.classList.add("fa-spin");
+            try {
+                let outbox = [];
+                try { outbox = JSON.parse(localStorage.getItem(NS + "_outbox") || "[]"); } catch (_) {}
+                if (outbox.length > 0) {
+                    const pResp = await fetch(SHIKSHA_UNIFIED_URL, {
+                        method: "POST",
+                        headers: { "Content-Type": "text/plain;charset=utf-8" },
+                        body: JSON.stringify({ action: "eduSyncBatch", namespace: NS, device_id: localStorage.getItem(NS + "_device_id") || "MOB", pushed_at: new Date().toISOString(), operations: outbox })
+                    });
+                    const pJson = await pResp.json();
+                    if (pJson && pJson.status === "success") {
+                        const ack = new Set(pJson.acked_op_ids || outbox.map((x) => x.op_id));
+                        localStorage.setItem(NS + "_outbox", JSON.stringify(outbox.filter((x) => !ack.has(x.op_id))));
+                    }
+                }
+                const gResp = await fetch(`${SHIKSHA_UNIFIED_URL}?action=eduGetAll&namespace=${NS}&_t=${Date.now()}`);
+                const gJson = await gResp.json();
+                if (gJson && gJson.status === "success") {
+                    Object.keys(gJson).forEach((k) => {
+                        if (Array.isArray(gJson[k])) mfWriteCol(k, gJson[k]);
+                    });
+                    setBanner("SHIKSHA Unified cloud ke saath sync complete!");
+                }
+            } catch (e) {
+                setBanner("Offline / Sync note: " + (e.message || e), true);
+            } finally {
+                if (icon) icon.classList.remove("fa-spin");
+                renderAll();
+            }
+        };
+
+        renderAll();
+    </script>
+</body>
+</html>
