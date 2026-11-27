@@ -1,13 +1,15 @@
 // EDU_ERP/mobile-pwa/sw.js
 // Service Worker for Offline Caching of EDU_ERP Mobile PWA
 
-const EDU_CACHE_NAME = "edu-erp-mobile-v1";
+const EDU_CACHE_NAME = "edu-erp-mobile-v2";
 const EDU_CORE_ASSETS = [
   "./",
   "./index.html",
-  "./app.js",
   "./manifest.json",
-  "../shared/sync-engine.js"
+  "./icon-192.png",
+  "./icon-512.png",
+  "../shared/sync-engine.js",
+  "../shared/merged-features.js"
 ];
 
 self.addEventListener("install", (event) => {
