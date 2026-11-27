@@ -1,25 +1,238 @@
-async function handleEnableWatchAlerts() {
-  const badge = document.getElementById("watch-perm-status");
-  if (!("Notification" in window)) {
-    if (badge) badge.textContent = "Permission: UNSUPPORTED";
-    alert("Is browser mein Web Notification support nahi hai.");
-    return;
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SHIKSHA Unified — Wearable Alerts</title>
+    <meta name="theme-color" content="#0f172a">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        html, body { font-family: 'Plus Jakarta Sans', sans-serif; overflow-x: hidden; max-width: 100vw; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col p-4">
 
-  let perm = Notification.permission;
-  if (perm === "default") {
-    perm = await Notification.requestPermission();
-  }
+    <div class="max-w-xl w-full mx-auto space-y-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
+            <div class="flex items-center justify-between gap-2">
+                <span class="text-[11px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-300 border border-emerald-700">
+                    Wearable OS Bridge
+                </span>
+                <span id="watch-perm-status" class="text-[11px] font-bold text-slate-300">
+                    Permission: DEFAULT
+                </span>
+            </div>
 
-  const label = String(perm || "default").toUpperCase();
-  if (badge) badge.textContent = `Permission: ${label}`;
+            <div>
+                <h1 class="text-lg font-black text-white">SHIKSHA Unified Watch Alerts</h1>
+                <p class="text-xs text-slate-400 mt-1">
+                    Phone notification permission ON rakhein aur watch companion app mein notification access enable karein taaki alerts wrist par aayein.
+                </p>
+            </div>
 
-  if (perm === "granted") {
-    new Notification("SHIKSHA Unified Watch", {
-      body: "Wrist alerts enabled! Smartwatch notifications active.",
-      tag: "shiksha-watch-ready"
-    });
-  } else if (perm === "denied") {
-    alert("Notifications blocked hain. Chrome > Settings > Site settings > Notifications ya Phone App Settings se allow karein.");
-  }
-}
+            <div class="grid grid-cols-2 gap-2.5 pt-1">
+                <button type="button" id="btn-enable-watch-alerts" onclick="handleEnableWatchAlerts()" class="py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Enable Alerts</span>
+                </button>
+                <button type="button" id="btn-sync-watch-alerts" onclick="handleSyncAndPushWatch()" class="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs flex items-center justify-center gap-2">
+                    <i id="watch-sync-icon" class="fa-solid fa-rotate"></i>
+                    <span>Sync &amp; Push</span>
+                </button>
+            </div>
+
+            <button type="button" onclick="handleSendTestWatchAlert()" class="w-full py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700 font-extrabold text-xs">
+                Send Test Smartwatch Notification
+            </button>
+
+            <div id="watch-status-banner" class="hidden p-2.5 rounded-xl text-xs font-bold bg-slate-950 border border-slate-800 text-emerald-300"></div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-2.5">
+            <div class="flex items-center justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-slate-300">Recent Watch Push Log</h2>
+                <button type="button" onclick="clearWatchLog()" class="text-[11px] font-bold text-slate-400 hover:text-white">Clear</button>
+            </div>
+            <div id="watch-push-log-list" class="space-y-2"></div>
+        </div>
+    </div>
+
+    <script>
+        const WATCH_LOG_KEY = "edu_erp_watch_push_log_v1";
+        const WATCH_SEEN_KEY = "edu_erp_watch_seen_ids_v1";
+        const SHIKSHA_UNIFIED_URL =
+            "https://script.google.com/macros/s/AKfycbwkUDVo7oMZ0K_MR6RLoUu5d9tMiXU358cfPesCIEXQVHCsGyUZVbbgcDfLK9qsHeRm_w/exec";
+
+        function escHtml(v) {
+            return String(v ?? "").replace(/[&<>"']/g, (c) => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            }[c]));
+        }
+
+        function setWatchBanner(msg, isErr = false) {
+            const el = document.getElementById("watch-status-banner");
+            if (!el) return;
+            el.textContent = msg;
+            el.className = isErr
+                ? "p-2.5 rounded-xl text-xs font-bold bg-rose-950/90 border border-rose-700 text-rose-200"
+                : "p-2.5 rounded-xl text-xs font-bold bg-emerald-950/90 border border-emerald-700 text-emerald-200";
+            el.classList.remove("hidden");
+        }
+
+        function refreshPermissionBadge() {
+            const badge = document.getElementById("watch-perm-status");
+            if (!badge) return;
+            if (!("Notification" in window)) {
+                badge.textContent = "Permission: UNSUPPORTED";
+                return;
+            }
+            badge.textContent = `Permission: ${String(Notification.permission || "default").toUpperCase()}`;
+        }
+
+        function readWatchLogs() {
+            try {
+                const arr = JSON.parse(localStorage.getItem(WATCH_LOG_KEY) || "[]");
+                return Array.isArray(arr) ? arr : [];
+            } catch (_) {
+                return [];
+            }
+        }
+
+        function renderWatchLogs() {
+            const listEl = document.getElementById("watch-push-log-list");
+            if (!listEl) return;
+            const logs = readWatchLogs();
+            if (!logs.length) {
+                listEl.innerHTML = `<div class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-400">Abhi koi watch alert log nahi hai.</div>`;
+                return;
+            }
+            listEl.innerHTML = logs.slice(0, 20).map((item) => `
+                <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-1">
+                    <div class="flex items-center justify-between gap-2 text-[10px]">
+                        <span class="font-black uppercase text-sky-400">${escHtml(item.category || "SHIKSHA ALERT")}</span>
+                        <span class="text-slate-400">${escHtml(item.timeLabel || "")}</span>
+                    </div>
+                    <div class="text-xs font-extrabold text-white">${escHtml(item.title || "SHIKSHA Unified")}</div>
+                    <div class="text-xs text-slate-300">${escHtml(item.body || "")}</div>
+                </div>
+            `).join("");
+        }
+
+        function pushWatchAlert(category, title, body, notifySystem = true) {
+            const entry = {
+                id: "WCH-" + Date.now() + "-" + Math.random().toString(36).slice(2, 5).toUpperCase(),
+                category: String(category || "SHIKSHA ALERT").toUpperCase(),
+                title: String(title || "SHIKSHA Unified").slice(0, 45),
+                body: String(body || "").slice(0, 120),
+                timeLabel: new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+            };
+            const logs = readWatchLogs();
+            logs.unshift(entry);
+            localStorage.setItem(WATCH_LOG_KEY, JSON.stringify(logs.slice(0, 50)));
+            renderWatchLogs();
+
+            if (notifySystem && "Notification" in window && Notification.permission === "granted") {
+                try {
+                    if (navigator.vibrate) navigator.vibrate([120, 60, 120]);
+                    new Notification(entry.title, {
+                        body: entry.body,
+                        tag: entry.id
+                    });
+                } catch (_) {}
+            }
+            return entry;
+        }
+
+        async function handleEnableWatchAlerts() {
+            if (!("Notification" in window)) {
+                refreshPermissionBadge();
+                setWatchBanner("Is browser mein Web Notification support nahi hai.", true);
+                return;
+            }
+            let perm = Notification.permission;
+            if (perm === "default") {
+                perm = await Notification.requestPermission();
+            }
+            refreshPermissionBadge();
+
+            if (perm === "granted") {
+                pushWatchAlert("WATCH READY", "SHIKSHA Unified Watch", "Smartwatch wrist alerts enabled!", true);
+                setWatchBanner("Notification permission GRANTED! Watch test alert bhej diya gaya hai.");
+            } else if (perm === "denied") {
+                setWatchBanner("Notifications blocked hain. Chrome Site Settings ya Phone App Settings se allow karein.", true);
+            } else {
+                setWatchBanner("Permission abhi DEFAULT hai. Phone Chrome Notification setting check karein.", true);
+            }
+        }
+
+        function handleSendTestWatchAlert() {
+            refreshPermissionBadge();
+            pushWatchAlert("SHIKSHA ALERT", "Test Wrist Notification", "Smartwatch notification bridge is active!", true);
+            if ("Notification" in window && Notification.permission === "granted") {
+                setWatchBanner("Test notification phone aur watch par bheja gaya.");
+            } else {
+                setWatchBanner("Log mein test alert add hua. System notification ke liye Enable Alerts se permission allow karein.", true);
+            }
+        }
+
+        async function handleSyncAndPushWatch() {
+            const icon = document.getElementById("watch-sync-icon");
+            if (icon) icon.classList.add("fa-spin");
+            try {
+                const resp = await fetch(`${SHIKSHA_UNIFIED_URL}?action=eduGetAll&namespace=edu_erp_v1&_t=${Date.now()}`);
+                const data = await resp.json();
+                let seen = new Set();
+                try {
+                    seen = new Set(JSON.parse(localStorage.getItem(WATCH_SEEN_KEY) || "[]"));
+                } catch (_) {}
+
+                let newCount = 0;
+                const watchCols = ["attendance", "fees", "homework", "notices", "chat_messages", "leaves"];
+                watchCols.forEach((col) => {
+                    const rows = Array.isArray(data?.[col]) ? data[col] : [];
+                    rows.slice(0, 15).forEach((row) => {
+                        const rid = String(row.id || "");
+                        if (!rid || seen.has(rid)) return;
+                        seen.add(rid);
+
+                        if (col === "attendance" && row.status === "A") {
+                            pushWatchAlert("ABSENTEE", `Absent: ${row.student_id || "Student"}`, `Date ${row.att_date || ""} marked Absent.`, true);
+                            newCount++;
+                        } else if (col === "homework") {
+                            pushWatchAlert("HOMEWORK", row.title || "New Homework", `${row.class || ""} • ${row.subject || ""}`, true);
+                            newCount++;
+                        } else if (col === "notices") {
+                            pushWatchAlert("NOTICE", row.title || "New Notice", row.desc || "", true);
+                            newCount++;
+                        } else if (col === "fees") {
+                            pushWatchAlert("FEE RECEIPT", `Fee: Rs ${row.amount_paid || 0}`, `${row.student_name || row.student_id || "Student"}`, true);
+                            newCount++;
+                        } else if (col === "chat_messages") {
+                            pushWatchAlert("CHAT", row.senderName || "Message", row.text || "", true);
+                            newCount++;
+                        }
+                    });
+                });
+
+                localStorage.setItem(WATCH_SEEN_KEY, JSON.stringify(Array.from(seen).slice(-500)));
+                setWatchBanner(newCount > 0 ? `${newCount} naye alerts watch par push kiye gaye.` : "Sync complete. Koi naya alert nahi mila.");
+            } catch (err) {
+                setWatchBanner("Sync check note: " + (err.message || err), true);
+            } finally {
+                if (icon) icon.classList.remove("fa-spin");
+                refreshPermissionBadge();
+            }
+        }
+
+        function clearWatchLog() {
+            localStorage.removeItem(WATCH_LOG_KEY);
+            renderWatchLogs();
+        }
+
+        refreshPermissionBadge();
+        renderWatchLogs();
+    </script>
+</body>
+</html>
