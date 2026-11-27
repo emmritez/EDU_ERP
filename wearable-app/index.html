@@ -1,103 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHIKSHA Unified — Wearable Alert Companion</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen p-4">
-    <div class="max-w-md mx-auto space-y-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-2">
-            <div class="flex items-center justify-between">
-                <span class="text-[10px] font-black uppercase tracking-wider text-emerald-400 bg-emerald-950/70 px-2.5 py-1 rounded-full border border-emerald-800">
-                    Wearable OS Bridge
-                </span>
-                <span id="watch-perm-badge" class="text-[10px] font-bold text-slate-300">Checking...</span>
-            </div>
-            <h1 class="text-lg font-black text-white">SHIKSHA Unified Watch Alerts</h1>
-            <p class="text-xs text-slate-400">
-                Phone notification permission ON rakhein aur watch companion app mein notification access enable karein taaki alerts wrist par aayein.
-            </p>
-            <div class="grid grid-cols-2 gap-2 pt-2">
-                <button type="button" id="btn-enable-watch-perm" class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl text-xs">
-                    <i class="fa-solid fa-bell mr-1"></i>Enable Alerts
-                </button>
-                <button type="button" id="btn-sync-watch-now" class="py-2.5 px-3 bg-blue-600 hover:bg-blue-500 text-white font-extrabold rounded-xl text-xs">
-                    <i class="fa-solid fa-rotate mr-1"></i>Sync &amp; Push
-                </button>
-            </div>
-            <button type="button" id="btn-test-watch-alert" class="w-full py-2 bg-slate-800 hover:bg-slate-700 text-amber-300 border border-slate-700 font-bold rounded-xl text-xs">
-                <i class="fa-solid fa-watch-fitness mr-1"></i>Send Test Smartwatch Notification
-            </button>
-        </div>
+async function handleEnableWatchAlerts() {
+  const badge = document.getElementById("watch-perm-status");
+  if (!("Notification" in window)) {
+    if (badge) badge.textContent = "Permission: UNSUPPORTED";
+    alert("Is browser mein Web Notification support nahi hai.");
+    return;
+  }
 
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-2.5">
-            <h2 class="text-xs font-black uppercase tracking-wider text-slate-300">Recent Watch Push Log</h2>
-            <div id="watch-history-list" class="space-y-2"></div>
-        </div>
-    </div>
+  let perm = Notification.permission;
+  if (perm === "default") {
+    perm = await Notification.requestPermission();
+  }
 
-    <script type="module">
-        import {
-            requestWatchNotificationPermission,
-            triggerSmartwatchPushAlert,
-            syncAndPushToWatch,
-            readWatchAlertHistory
-        } from "./watch-alerts.js";
+  const label = String(perm || "default").toUpperCase();
+  if (badge) badge.textContent = `Permission: ${label}`;
 
-        function refreshPermissionBadge() {
-            const el = document.getElementById("watch-perm-badge");
-            if (!el) return;
-            if (!("Notification" in window)) {
-                el.textContent = "Unsupported";
-                return;
-            }
-            el.textContent = `Permission: ${Notification.permission.toUpperCase()}`;
-        }
-
-        function renderHistory() {
-            const box = document.getElementById("watch-history-list");
-            const items = readWatchAlertHistory();
-            if (!box) return;
-            box.innerHTML = items.length
-                ? items.map((it) => `
-                    <div class="bg-slate-950 border border-slate-800 rounded-2xl p-3">
-                        <div class="flex items-center justify-between text-[10px] font-black text-indigo-400">
-                            <span>${it.category}</span>
-                            <span class="text-slate-400">${it.triggered_at}</span>
-                        </div>
-                        <div class="text-xs font-extrabold text-white mt-0.5">${it.title}</div>
-                        <div class="text-[11px] text-slate-400 mt-0.5">${it.body}</div>
-                    </div>
-                `).join("")
-                : `<p class="text-xs text-slate-400">Abhi tak koi watch alert trigger nahi hua hai.</p>`;
-        }
-
-        document.getElementById("btn-enable-watch-perm").addEventListener("click", async () => {
-            await requestWatchNotificationPermission();
-            refreshPermissionBadge();
-        });
-
-        document.getElementById("btn-test-watch-alert").addEventListener("click", () => {
-            triggerSmartwatchPushAlert({
-                id: "TEST-" + Date.now(),
-                category: "SHIKSHA ALERT",
-                title: "Test Wrist Notification",
-                body: "Smartwatch notification bridge is active!",
-                tag: "shiksha-test"
-            });
-            renderHistory();
-        });
-
-        document.getElementById("btn-sync-watch-now").addEventListener("click", async () => {
-            await syncAndPushToWatch();
-            renderHistory();
-        });
-
-        refreshPermissionBadge();
-        renderHistory();
-    </script>
-</body>
-</html>
+  if (perm === "granted") {
+    new Notification("SHIKSHA Unified Watch", {
+      body: "Wrist alerts enabled! Smartwatch notifications active.",
+      tag: "shiksha-watch-ready"
+    });
+  } else if (perm === "denied") {
+    alert("Notifications blocked hain. Chrome > Settings > Site settings > Notifications ya Phone App Settings se allow karein.");
+  }
+}
