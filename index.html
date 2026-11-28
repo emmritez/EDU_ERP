@@ -302,7 +302,6 @@
                             <div id="role-quick-menu-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
                         </div>
 
-                        <!-- Student Progressive Report (Parent/Student View) -->
                         <div id="parent-growth-analytics-section" class="hidden sharp-panel bg-white border-slate-500 p-4 space-y-3">
                             <div class="flex items-center justify-between border-b border-slate-300 pb-2">
                                 <h3 id="growth-student-title" class="text-sm font-black text-slate-950">Student Progressive &amp; Behavior Report</h3>
@@ -312,7 +311,6 @@
                             <div id="parent-behavior-remarks-list" class="space-y-1.5"></div>
                         </div>
 
-                        <!-- Notices -->
                         <div class="sharp-panel bg-white border-slate-500 p-4">
                             <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-300">
                                 <h3 class="text-sm font-black uppercase text-slate-950"><i class="fa-solid fa-bullhorn text-rose-600 mr-1.5"></i> Important Notices</h3>
@@ -323,7 +321,6 @@
                             <div id="portal-notices-container" class="space-y-2"></div>
                         </div>
 
-                        <!-- Faculty Directory (Hidden for Parents/Students so Admin/Faculty directory doesn't expose Admin; Parents get Teacher Call/Chat in Chat & Teachers tab) -->
                         <div id="admin-teachers-card" class="sharp-panel bg-white border-slate-500 p-4">
                             <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-300">
                                 <h3 id="faculty-card-heading" class="text-sm font-black uppercase text-slate-950"><i class="fa-solid fa-chalkboard-user text-blue-700 mr-1.5"></i> Faculty Directory</h3>
@@ -353,7 +350,6 @@
 
                         <div id="students-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
 
-                        <!-- Standard 86x54mm ID Card Preview -->
                         <div class="sharp-panel bg-white border-slate-500 p-4 space-y-3">
                             <div class="flex flex-wrap items-center justify-between gap-2">
                                 <div>
@@ -396,7 +392,7 @@
                         </div>
                     </section>
 
-                    <!-- TAB: ATTENDANCE (P/A/L + Back Date + Monthly PDF + Background Absentee Alert) -->
+                    <!-- TAB: ATTENDANCE -->
                     <section id="portal-tab-attendance" class="hidden space-y-4">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
@@ -432,7 +428,7 @@
                         </div>
                     </section>
 
-                    <!-- TAB: FEES & ANALYTICS (PC App Parity) -->
+                    <!-- TAB: FEES & ANALYTICS -->
                     <section id="portal-tab-fees" class="hidden space-y-4">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <h3 class="text-sm font-black uppercase text-slate-950">Fees, Receipts &amp; Analytics</h3>
@@ -598,7 +594,6 @@
     </footer>
 
     <!-- ================= MODALS ================= -->
-    <!-- Behavior Modal -->
     <div id="modal-behavior-remark" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-md p-5 shadow-2xl text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
@@ -617,7 +612,6 @@
         </div>
     </div>
 
-    <!-- Gallery Upload Modal -->
     <div id="modal-upload-gallery" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-md p-5 shadow-2xl text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
@@ -638,7 +632,6 @@
         </div>
     </div>
 
-    <!-- Full Student Modal (PC App Parity) -->
     <div id="modal-student" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-2xl p-5 shadow-2xl max-h-[90vh] overflow-y-auto text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
@@ -681,7 +674,6 @@
         </div>
     </div>
 
-    <!-- Full Faculty Modal (PC App Parity) -->
     <div id="modal-teacher" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-2xl p-5 shadow-2xl max-h-[90vh] overflow-y-auto text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
@@ -723,7 +715,6 @@
         </div>
     </div>
 
-    <!-- Fee Collection Modal (Single / Multiple Months) -->
     <div id="modal-collect-fee" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-md p-5 shadow-2xl text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
@@ -748,7 +739,6 @@
         </div>
     </div>
 
-    <!-- Notice, Note, Holiday, Login, PDF & QR Modals -->
     <div id="modal-add-notice" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-sm p-5 text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300"><h4 class="text-sm font-black">Post Notice</h4><button onclick="closeModal('modal-add-notice')"><i class="fa-solid fa-xmark"></i></button></div>
@@ -836,7 +826,8 @@
             </div>
         </div>
     </div>
-<script>
+
+    <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7e_8tfjcDCIuKKfEl9tEWZRvuDZ5cOCdak88hjdEP0nogKvIBJLtg7VZM1CEGp8m/exec";
         const COACHING_UPI_ID = "shikshajhs@ptyes";
         const ALL_CLASSES = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"];
@@ -1798,13 +1789,10 @@
 
             let contacts = [];
             if (STATE.currentRole === "parent") {
-                // Parents see Teachers ONLY (Admin hidden; no student-to-student)
                 contacts = getUniqueTeachers().map((t) => ({ key: `T_${cleanPhone(t.phone)}`, name: getFacName(t), role: "Teacher", canCall: true }));
             } else if (STATE.currentRole === "teacher") {
-                // Teachers see Students ONLY (Admin hidden)
                 contacts = STATE.students.map((s) => ({ key: `S_${getStuId(s)}`, name: `${getStuName(s)} (${getStuClass(s)})`, role: "Student", canCall: false }));
             } else {
-                // Admin can call/chat Teachers & Students; nobody can call Admin
                 contacts = [
                     ...getUniqueTeachers().map((t) => ({ key: `T_${cleanPhone(t.phone)}`, name: `Teacher: ${getFacName(t)}`, role: "Teacher", canCall: true })),
                     ...STATE.students.map((s) => ({ key: `S_${getStuId(s)}`, name: `Student: ${getStuName(s)}`, role: "Student", canCall: true }))
