@@ -44,19 +44,19 @@
             </div>
 
             <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-                <button onclick="fetchCloudDatabase(true)" id="global-sync-badge" class="sharp-btn text-[11px] font-bold text-emerald-300 flex items-center gap-1.5 bg-emerald-950/80 px-2.5 py-1.5 border border-emerald-700">
+                <button type="button" onclick="fetchCloudDatabase(true)" id="global-sync-badge" class="sharp-btn text-[11px] font-bold text-emerald-300 flex items-center gap-1.5 bg-emerald-950/80 px-2.5 py-1.5 border border-emerald-700">
                     <i class="fa-solid fa-rotate text-[10px]"></i> <span>Sync</span>
                 </button>
-                <button onclick="toggleWebTheme()" title="Dark / Light Theme" class="sharp-btn w-8 h-8 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 flex items-center justify-center">
+                <button type="button" onclick="toggleWebTheme()" title="Dark / Light Theme" class="sharp-btn w-8 h-8 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 flex items-center justify-center">
                     <i id="web-theme-ico" class="fa-solid fa-moon text-xs"></i>
                 </button>
                 <div id="portal-user-badge" class="hidden items-center gap-1.5">
                     <span id="header-role-pill" class="sharp-btn text-[11px] font-black px-2.5 py-1 bg-blue-600 text-white border border-blue-400">ADMIN</span>
-                    <button onclick="logout()" title="Logout" class="sharp-btn text-xs px-2.5 py-1.5 bg-rose-700 hover:bg-rose-600 text-white font-bold border border-rose-900">
+                    <button type="button" onclick="logout()" title="Logout" class="sharp-btn text-xs px-2.5 py-1.5 bg-rose-700 hover:bg-rose-600 text-white font-bold border border-rose-900">
                         <i class="fa-solid fa-right-from-bracket"></i>
                     </button>
                 </div>
-                <button id="btn-header-login" onclick="openLoginGateway()" class="sharp-btn text-xs bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-1.5 border border-blue-400 flex items-center gap-1.5">
+                <button type="button" id="btn-header-login" onclick="openLoginGateway()" class="sharp-btn text-xs bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-1.5 border border-blue-400 flex items-center gap-1.5">
                     <i class="fa-solid fa-lock"></i> <span>Login</span>
                 </button>
             </div>
@@ -65,20 +65,20 @@
         <div class="bg-slate-900 h-10 flex items-center">
             <div class="max-w-7xl mx-auto px-3 sm:px-6 w-full flex items-center justify-between gap-2 overflow-x-auto hide-scrollbar text-xs font-bold">
                 <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                    <button onclick="STATE.currentRole ? openPortalView() : showPublicSection('home')" class="sharp-btn text-white bg-blue-600 hover:bg-blue-500 px-2.5 py-1 flex items-center gap-1">
+                    <button type="button" onclick="STATE.currentRole ? openPortalView() : showPublicSection('home')" class="sharp-btn text-white bg-blue-600 hover:bg-blue-500 px-2.5 py-1 flex items-center gap-1">
                         <i class="fa-solid fa-house"></i> <span>Home</span>
                     </button>
-                    <button onclick="showPublicSection('gallery')" class="sharp-btn text-slate-200 hover:text-white px-2.5 py-1 hover:bg-slate-800 flex items-center gap-1">
+                    <button type="button" onclick="showPublicSection('gallery')" class="sharp-btn text-slate-200 hover:text-white px-2.5 py-1 hover:bg-slate-800 flex items-center gap-1">
                         <i class="fa-solid fa-images text-emerald-400"></i> <span>Gallery</span>
                     </button>
-                    <button id="nav-btn-faculty-dir" onclick="showPublicSection('faculty')" class="sharp-btn text-slate-200 hover:text-white px-2.5 py-1 hover:bg-slate-800 flex items-center gap-1">
+                    <button type="button" id="nav-btn-faculty-dir" onclick="showPublicSection('faculty')" class="sharp-btn text-slate-200 hover:text-white px-2.5 py-1 hover:bg-slate-800 flex items-center gap-1">
                         <i class="fa-solid fa-chalkboard-user text-amber-400"></i> <span>Faculty</span>
                     </button>
-                    <button onclick="if(STATE.currentRole){ openPortalView(); switchPortalTab('notes'); } else { openLoginGateway(); }" class="sharp-btn text-slate-200 hover:text-white px-2.5 py-1 hover:bg-slate-800 flex items-center gap-1">
+                    <button type="button" onclick="if(STATE.currentRole){ openPortalView(); switchPortalTab('notes'); } else { openLoginGateway(); }" class="sharp-btn text-slate-200 hover:text-white px-2.5 py-1 hover:bg-slate-800 flex items-center gap-1">
                         <i class="fa-solid fa-book-bookmark text-sky-400"></i> <span>Notes &amp; Files</span>
                     </button>
                 </div>
-                <button onclick="openUpiQrModal()" class="sharp-btn text-[11px] bg-slate-800 text-emerald-400 border border-slate-600 px-2.5 py-1 hover:bg-slate-700 flex items-center gap-1 shrink-0">
+                <button type="button" onclick="openUpiQrModal()" class="sharp-btn text-[11px] bg-slate-800 text-emerald-400 border border-slate-600 px-2.5 py-1 hover:bg-slate-700 flex items-center gap-1 shrink-0">
                     <i class="fa-solid fa-qrcode"></i> <span>Pay Fee QR</span>
                 </button>
             </div>
@@ -162,10 +162,10 @@
                         Concept-based coaching for CBSE, ICSE, and UP Board (Classes 1st to 12th) with live attendance, behavior tracking, online tests, study notes, and direct teacher-parent app connectivity.
                     </p>
                     <div class="mt-6 flex flex-wrap gap-3">
-                        <button onclick="openLoginGateway()" class="sharp-btn px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm border border-blue-400 flex items-center gap-2">
+                        <button type="button" onclick="openLoginGateway()" class="sharp-btn px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm border border-blue-400 flex items-center gap-2">
                             <i class="fa-solid fa-user-check"></i> Admin / Teacher / Student Login
                         </button>
-                        <button onclick="showPublicSection('gallery')" class="sharp-btn px-5 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold text-sm flex items-center gap-2">
+                        <button type="button" onclick="showPublicSection('gallery')" class="sharp-btn px-5 py-3 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold text-sm flex items-center gap-2">
                             <i class="fa-solid fa-images text-emerald-400"></i> Campus Gallery
                         </button>
                     </div>
@@ -196,7 +196,7 @@
             <div class="sharp-panel bg-slate-950 border-slate-700 p-4">
                 <p class="text-xs uppercase font-bold text-slate-400">Official Fee UPI</p>
                 <p class="text-sm font-mono font-bold text-emerald-400 mt-1">shikshajhs@ptyes</p>
-                <button onclick="openUpiQrModal()" class="text-xs text-sky-400 font-bold hover:underline mt-1">Scan QR Code &rarr;</button>
+                <button type="button" onclick="openUpiQrModal()" class="text-xs text-sky-400 font-bold hover:underline mt-1">Scan QR Code &rarr;</button>
             </div>
             <div class="sharp-panel bg-slate-950 border-slate-700 p-4">
                 <p class="text-xs uppercase font-bold text-slate-400">Campus Location</p>
@@ -215,10 +215,10 @@
                     <h2 class="text-xl font-black text-white">SHIKSHA Gallery</h2>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button id="btn-admin-upload-gallery" onclick="openUploadGalleryModal()" class="sharp-btn text-xs bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-2 border border-blue-400">
+                    <button type="button" id="btn-admin-upload-gallery" onclick="openUploadGalleryModal()" class="sharp-btn text-xs bg-blue-600 hover:bg-blue-500 text-white font-bold px-3.5 py-2 border border-blue-400">
                         <i class="fa-solid fa-cloud-arrow-up mr-1"></i> Upload Photo / Video
                     </button>
-                    <button onclick="exitGalleryView()" class="sharp-btn text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3.5 py-2 border border-slate-600">
+                    <button type="button" onclick="exitGalleryView()" class="sharp-btn text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3.5 py-2 border border-slate-600">
                         <i class="fa-solid fa-arrow-left mr-1"></i> Back
                     </button>
                 </div>
@@ -233,7 +233,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full space-y-4">
             <div class="flex items-center justify-between pb-3 border-b border-slate-700">
                 <h2 class="text-xl font-black text-white">Our Faculty (SHIKSHA COACHING INSTITUTE)</h2>
-                <button onclick="STATE.currentRole ? openPortalView() : showPublicSection('home')" class="sharp-btn text-xs bg-slate-800 text-slate-200 font-bold px-3.5 py-2 border border-slate-600">
+                <button type="button" onclick="STATE.currentRole ? openPortalView() : showPublicSection('home')" class="sharp-btn text-xs bg-slate-800 text-slate-200 font-bold px-3.5 py-2 border border-slate-600">
                     <i class="fa-solid fa-arrow-left mr-1"></i> Back
                 </button>
             </div>
@@ -253,7 +253,7 @@
                     </div>
                     <nav id="desktop-sidebar-nav" class="space-y-1 font-bold text-xs"></nav>
                 </div>
-                <button onclick="logout()" class="sharp-btn w-full flex items-center gap-2 px-3.5 py-2.5 text-xs bg-rose-700 hover:bg-rose-600 text-white font-bold border border-rose-900">
+                <button type="button" onclick="logout()" class="sharp-btn w-full flex items-center gap-2 px-3.5 py-2.5 text-xs bg-rose-700 hover:bg-rose-600 text-white font-bold border border-rose-900">
                     <i class="fa-solid fa-right-from-bracket w-4"></i> Logout
                 </button>
             </aside>
@@ -268,7 +268,7 @@
                                 <h2 id="portal-welcome-title" class="text-xl font-black">Welcome to SHIKSHA COACHING INSTITUTE</h2>
                                 <p class="text-xs text-blue-100 mt-0.5">Classes 1st to 12th • Live Cloud Sync &amp; App-to-App Communication</p>
                             </div>
-                            <button onclick="openPdfReportModal()" class="sharp-btn text-xs bg-slate-900 hover:bg-slate-800 text-white font-bold px-3.5 py-2 border border-slate-700">
+                            <button type="button" onclick="openPdfReportModal()" class="sharp-btn text-xs bg-slate-900 hover:bg-slate-800 text-white font-bold px-3.5 py-2 border border-slate-700">
                                 <i class="fa-solid fa-file-pdf mr-1 text-rose-400"></i> Progress PDF
                             </button>
                         </div>
@@ -314,7 +314,7 @@
                         <div class="sharp-panel bg-white border-slate-500 p-4">
                             <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-300">
                                 <h3 class="text-sm font-black uppercase text-slate-950"><i class="fa-solid fa-bullhorn text-rose-600 mr-1.5"></i> Important Notices</h3>
-                                <button id="btn-portal-add-notice" onclick="openAddNoticeModal()" class="sharp-btn text-xs bg-blue-600 text-white px-3 py-1.5 font-bold border border-blue-800">
+                                <button type="button" id="btn-portal-add-notice" onclick="openAddNoticeModal()" class="sharp-btn text-xs bg-blue-600 text-white px-3 py-1.5 font-bold border border-blue-800">
                                     <i class="fa-solid fa-plus mr-1"></i> Post Notice
                                 </button>
                             </div>
@@ -324,7 +324,7 @@
                         <div id="admin-teachers-card" class="sharp-panel bg-white border-slate-500 p-4">
                             <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-300">
                                 <h3 id="faculty-card-heading" class="text-sm font-black uppercase text-slate-950"><i class="fa-solid fa-chalkboard-user text-blue-700 mr-1.5"></i> Faculty Directory</h3>
-                                <button id="btn-add-teacher-top" onclick="openAddTeacherModal()" class="sharp-btn text-xs bg-blue-600 text-white px-3 py-1.5 font-bold border border-blue-800">
+                                <button type="button" id="btn-add-teacher-top" onclick="openAddTeacherModal()" class="sharp-btn text-xs bg-blue-600 text-white px-3 py-1.5 font-bold border border-blue-800">
                                     <i class="fa-solid fa-user-plus mr-1"></i> Add Faculty
                                 </button>
                             </div>
@@ -338,11 +338,11 @@
                             <h3 id="students-tab-heading" class="text-sm font-black uppercase text-slate-950">Student Records (Classes 1st – 12th)</h3>
                             <div class="flex flex-wrap items-center gap-1.5">
                                 <div id="student-status-filter-bar" class="flex bg-slate-300 p-1 rounded text-xs font-bold">
-                                    <button onclick="setStudentStatusFilter('active')" id="btn-filter-active" class="sharp-btn px-2.5 py-1 bg-blue-600 text-white">Active</button>
-                                    <button onclick="setStudentStatusFilter('inactive')" id="btn-filter-inactive" class="sharp-btn px-2.5 py-1 text-slate-900">Inactive</button>
-                                    <button onclick="setStudentStatusFilter('all')" id="btn-filter-all" class="sharp-btn px-2.5 py-1 text-slate-900">All</button>
+                                    <button type="button" onclick="setStudentStatusFilter('active')" id="btn-filter-active" class="sharp-btn px-2.5 py-1 bg-blue-600 text-white">Active</button>
+                                    <button type="button" onclick="setStudentStatusFilter('inactive')" id="btn-filter-inactive" class="sharp-btn px-2.5 py-1 text-slate-900">Inactive</button>
+                                    <button type="button" onclick="setStudentStatusFilter('all')" id="btn-filter-all" class="sharp-btn px-2.5 py-1 text-slate-900">All</button>
                                 </div>
-                                <button id="btn-add-student-top" onclick="openAddStudentModal()" class="sharp-btn text-xs bg-blue-600 text-white font-bold px-3.5 py-1.5 border border-blue-800">
+                                <button type="button" id="btn-add-student-top" onclick="openAddStudentModal()" class="sharp-btn text-xs bg-blue-600 text-white font-bold px-3.5 py-1.5 border border-blue-800">
                                     <i class="fa-solid fa-user-plus mr-1"></i> Add Student
                                 </button>
                             </div>
@@ -401,11 +401,11 @@
                             </div>
                             <div class="flex flex-wrap items-center gap-1.5">
                                 <input id="att-target-date" type="date" onchange="renderAttendanceList()" class="sharp-btn border border-slate-500 bg-white px-2.5 py-1.5 text-xs font-bold">
-                                <button onclick="downloadMonthlyAttendancePdf()" class="sharp-btn text-xs bg-rose-600 text-white font-bold px-3 py-1.5 border border-rose-800">
+                                <button type="button" onclick="downloadMonthlyAttendancePdf()" class="sharp-btn text-xs bg-rose-600 text-white font-bold px-3 py-1.5 border border-rose-800">
                                     <i class="fa-solid fa-file-pdf mr-1"></i> Month PDF
                                 </button>
-                                <button id="btn-mark-holiday" onclick="openHolidayModal()" class="sharp-btn text-xs bg-amber-100 text-amber-900 border border-amber-400 font-bold px-3 py-1.5">Holiday</button>
-                                <button id="btn-save-attendance" onclick="submitAndSaveAttendance()" class="sharp-btn text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-4 py-1.5 border border-emerald-800">
+                                <button type="button" id="btn-mark-holiday" onclick="openHolidayModal()" class="sharp-btn text-xs bg-amber-100 text-amber-900 border border-amber-400 font-bold px-3 py-1.5">Holiday</button>
+                                <button type="button" id="btn-save-attendance" onclick="submitAndSaveAttendance()" class="sharp-btn text-xs bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-4 py-1.5 border border-emerald-800">
                                     <i class="fa-solid fa-check-double mr-1"></i> Submit &amp; Notify Absent
                                 </button>
                             </div>
@@ -432,7 +432,7 @@
                     <section id="portal-tab-fees" class="hidden space-y-4">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <h3 class="text-sm font-black uppercase text-slate-950">Fees, Receipts &amp; Analytics</h3>
-                            <button onclick="openUpiQrModal()" class="sharp-btn text-xs bg-blue-50 text-blue-800 border border-blue-400 font-bold px-3 py-1.5">
+                            <button type="button" onclick="openUpiQrModal()" class="sharp-btn text-xs bg-blue-50 text-blue-800 border border-blue-400 font-bold px-3 py-1.5">
                                 <i class="fa-solid fa-qrcode mr-1"></i> Pay UPI QR
                             </button>
                         </div>
@@ -572,7 +572,7 @@
                     <section id="portal-tab-notes" class="hidden space-y-3.5">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-black uppercase text-slate-950">Study Notes &amp; Attachments</h3>
-                            <button id="btn-upload-notes-portal" onclick="openAddNoteModal()" class="sharp-btn text-xs bg-blue-600 text-white font-bold px-3.5 py-1.5 border border-blue-800">
+                            <button type="button" id="btn-upload-notes-portal" onclick="openAddNoteModal()" class="sharp-btn text-xs bg-blue-600 text-white font-bold px-3.5 py-1.5 border border-blue-800">
                                 <i class="fa-solid fa-upload mr-1"></i> Upload Notes / Files
                             </button>
                         </div>
@@ -601,7 +601,7 @@
                     <span id="beh-modal-badge" class="text-[10px] font-black uppercase px-2 py-0.5 rounded">Behavior</span>
                     <h4 id="beh-modal-student-title" class="text-sm font-black mt-1">Student</h4>
                 </div>
-                <button onclick="closeBehaviorModal()" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeModal('modal-behavior-remark')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="handleSaveBehaviorRemark(event)" class="space-y-3 text-xs">
                 <input type="hidden" id="beh-student-id"><input type="hidden" id="beh-student-name"><input type="hidden" id="beh-flag-type">
@@ -616,7 +616,7 @@
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-md p-5 shadow-2xl text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
                 <h4 class="text-sm font-black">Upload Photo / Video to Gallery</h4>
-                <button onclick="closeModal('modal-upload-gallery')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeModal('modal-upload-gallery')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="handleSaveGalleryItem(event)" class="space-y-3 text-xs">
                 <div><label class="block font-bold mb-1">Folder / Album Name *</label><input type="text" id="gal-folder-name" required placeholder="e.g. Campus Events" class="sharp-btn w-full border border-slate-500 px-3 py-2"></div>
@@ -636,7 +636,7 @@
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-2xl p-5 shadow-2xl max-h-[90vh] overflow-y-auto text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
                 <h4 class="text-sm font-black">Student Registration / Edit Profile (Classes 1st – 12th)</h4>
-                <button onclick="closeModal('modal-student')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeModal('modal-student')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="handleSaveStudent(event)" class="space-y-3 text-xs">
                 <input type="hidden" id="edit-stu-id">
@@ -667,7 +667,7 @@
                     <div><label class="block font-bold mb-1">Student Photo</label><input type="file" id="inp-stu-photo" accept="image/*" class="w-full text-[11px]"></div>
                 </div>
                 <div class="flex gap-2 pt-2">
-                    <button type="submit" class="sharp-btn flex-1 py-2.5 bg-blue-600 text-white font-bold">Save Student</button>
+                    <button type="submit" id="btn-save-student-submit" class="sharp-btn flex-1 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold">Save Student</button>
                     <button type="button" id="btn-delete-student-modal" class="hidden sharp-btn px-4 py-2.5 bg-rose-600 text-white font-bold">Permanent Delete</button>
                 </div>
             </form>
@@ -678,7 +678,7 @@
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-2xl p-5 shadow-2xl max-h-[90vh] overflow-y-auto text-slate-950 space-y-3">
             <div class="flex justify-between items-center pb-2 border-b border-slate-300">
                 <h4 class="text-sm font-black">Faculty Profile (Full Details)</h4>
-                <button onclick="closeModal('modal-teacher')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeModal('modal-teacher')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="handleSaveTeacher(event)" class="space-y-3 text-xs">
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -722,7 +722,7 @@
                     <h4 class="text-sm font-black">Collect Fee (Single / Multiple Months)</h4>
                     <p id="fee-modal-stu-info" class="text-xs font-bold text-blue-700"></p>
                 </div>
-                <button onclick="closeModal('modal-collect-fee')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+                <button type="button" onclick="closeModal('modal-collect-fee')" class="text-slate-700"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <form onsubmit="handleAdminCollectFee(event)" class="space-y-3 text-xs">
                 <input type="hidden" id="fee-modal-stu-id">
@@ -741,7 +741,7 @@
 
     <div id="modal-add-notice" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-sm p-5 text-slate-950 space-y-3">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-300"><h4 class="text-sm font-black">Post Notice</h4><button onclick="closeModal('modal-add-notice')"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="flex justify-between items-center pb-2 border-b border-slate-300"><h4 class="text-sm font-black">Post Notice</h4><button type="button" onclick="closeModal('modal-add-notice')"><i class="fa-solid fa-xmark"></i></button></div>
             <form onsubmit="handleSaveNotice(event)" class="space-y-3 text-xs">
                 <input type="text" id="inp-notice-title" required placeholder="Title" class="sharp-btn w-full border border-slate-500 p-2 font-bold">
                 <select id="inp-notice-tag" class="sharp-btn w-full border border-slate-500 p-2 font-bold"><option>Important</option><option>Exam</option><option>Holiday</option><option>General</option></select>
@@ -753,7 +753,7 @@
 
     <div id="modal-add-note" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-sm p-5 text-slate-950 space-y-3">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-300"><h4 class="text-sm font-black">Upload Notes / Files</h4><button onclick="closeModal('modal-add-note')"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="flex justify-between items-center pb-2 border-b border-slate-300"><h4 class="text-sm font-black">Upload Notes / Files</h4><button type="button" onclick="closeModal('modal-add-note')"><i class="fa-solid fa-xmark"></i></button></div>
             <form onsubmit="handleSaveNote(event)" class="space-y-3 text-xs">
                 <input type="text" id="inp-note-title" required placeholder="Title" class="sharp-btn w-full border border-slate-500 p-2 font-bold">
                 <div class="grid grid-cols-2 gap-2">
@@ -769,7 +769,7 @@
 
     <div id="modal-holiday" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-sm p-5 text-slate-950 space-y-3">
-            <div class="flex justify-between items-center"><h4 class="text-sm font-black">Declare Holiday</h4><button onclick="closeModal('modal-holiday')"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="flex justify-between items-center"><h4 class="text-sm font-black">Declare Holiday</h4><button type="button" onclick="closeModal('modal-holiday')"><i class="fa-solid fa-xmark"></i></button></div>
             <form onsubmit="handleSaveHoliday(event)" class="space-y-3 text-xs">
                 <input type="text" id="inp-holiday-title" required placeholder="Occasion" class="sharp-btn w-full border border-slate-500 p-2 font-bold">
                 <input type="date" id="inp-holiday-date" required class="sharp-btn w-full border border-slate-500 p-2 font-bold">
@@ -780,7 +780,7 @@
 
     <div id="modal-login-gateway" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel w-full max-w-sm bg-slate-900 border-slate-700 p-6 shadow-2xl relative text-white space-y-4">
-            <button onclick="closeModal('modal-login-gateway')" class="absolute top-4 right-4 text-slate-300 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <button type="button" onclick="closeModal('modal-login-gateway')" class="absolute top-4 right-4 text-slate-300 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             <h3 class="text-base font-black text-center">SHIKSHA Portal Login</h3>
             <div class="grid grid-cols-3 gap-1 p-1 bg-slate-950 rounded text-xs font-bold border border-slate-800">
                 <button type="button" onclick="setLoginRole('admin')" id="d-role-btn-admin" class="sharp-btn py-2 bg-blue-600 text-white">Admin</button>
@@ -803,7 +803,7 @@
 
     <div id="modal-pdf-report" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-sm p-5 text-slate-950 space-y-3">
-            <div class="flex justify-between items-center pb-2 border-b border-slate-300"><h4 class="text-sm font-black">Download Student Progress PDF</h4><button onclick="closeModal('modal-pdf-report')"><i class="fa-solid fa-xmark"></i></button></div>
+            <div class="flex justify-between items-center pb-2 border-b border-slate-300"><h4 class="text-sm font-black">Download Student Progress PDF</h4><button type="button" onclick="closeModal('modal-pdf-report')"><i class="fa-solid fa-xmark"></i></button></div>
             <form onsubmit="generateStudentProgressPdf(event)" class="space-y-3 text-xs">
                 <select id="pdf-student-select" required class="sharp-btn w-full border border-slate-500 p-2 font-bold"></select>
                 <div class="grid grid-cols-2 gap-2">
@@ -817,38 +817,54 @@
 
     <div id="modal-upi-qr" class="fixed inset-0 z-50 bg-slate-950/80 hidden flex items-center justify-center p-4">
         <div class="sharp-panel bg-white border-slate-800 w-full max-w-xs p-5 text-center relative text-slate-950 space-y-3">
-            <button onclick="closeModal('modal-upi-qr')" class="absolute top-3 right-3 text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+            <button type="button" onclick="closeModal('modal-upi-qr')" class="absolute top-3 right-3 text-slate-700"><i class="fa-solid fa-xmark"></i></button>
             <h3 class="text-sm font-black">SHIKSHA COACHING INSTITUTE</h3>
             <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=shikshajhs@ptyes%26pn=SHIKSHA%20COACHING%20INSTITUTE%26cu=INR" alt="UPI QR" class="w-44 h-44 mx-auto border border-slate-300 p-1">
             <div class="sharp-btn bg-slate-100 p-2 border border-slate-400 flex items-center justify-between text-xs font-mono font-bold">
                 <span>shikshajhs@ptyes</span>
-                <button onclick="copyUpiId()" class="px-2 py-0.5 bg-white border border-slate-400 rounded"><i class="fa-regular fa-copy"></i></button>
+                <button type="button" onclick="copyUpiId()" class="px-2 py-0.5 bg-white border border-slate-400 rounded"><i class="fa-regular fa-copy"></i></button>
             </div>
         </div>
     </div>
-
-    <script>
+<script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzY7e_8tfjcDCIuKKfEl9tEWZRvuDZ5cOCdak88hjdEP0nogKvIBJLtg7VZM1CEGp8m/exec";
         const COACHING_UPI_ID = "shikshajhs@ptyes";
         const ALL_CLASSES = ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th"];
         const MONTHS_SHORT = ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar"];
         const DEFAULT_ADMIN = { phone: "8840762198", password: "EmmRitez@1990" };
 
+        function safeJsonParse(key, fallback) {
+            try {
+                const raw = localStorage.getItem(key);
+                return raw ? JSON.parse(raw) : fallback;
+            } catch (_) {
+                return fallback;
+            }
+        }
+
+        function safeSaveLocal(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (err) {
+                console.warn("Storage quota or write issue for", key, err);
+            }
+        }
+
         const STATE = {
-            adminUser: JSON.parse(localStorage.getItem("shiksha_admin_user") || JSON.stringify(DEFAULT_ADMIN)),
-            registeredTeachers: JSON.parse(localStorage.getItem("shiksha_teachers") || "[]"),
-            students: JSON.parse(localStorage.getItem("shiksha_students") || "[]"),
-            holidays: JSON.parse(localStorage.getItem("shiksha_holidays") || "[]"),
-            attendanceLogs: JSON.parse(localStorage.getItem("shiksha_att_logs") || "{}"),
-            behaviorLogs: JSON.parse(localStorage.getItem("shiksha_behavior_logs") || "[]"),
-            notices: JSON.parse(localStorage.getItem("shiksha_notices") || "[]"),
-            materials: JSON.parse(localStorage.getItem("shiksha_materials") || "[]"),
-            gallery: JSON.parse(localStorage.getItem("shiksha_gallery") || "[]"),
-            chatMessages: JSON.parse(localStorage.getItem("shiksha_chat_messages") || "[]"),
-            feePayments: JSON.parse(localStorage.getItem("shiksha_fee_payments") || "[]"),
-            timetable: JSON.parse(localStorage.getItem("shiksha_timetable") || "[]"),
-            homeworkDiary: JSON.parse(localStorage.getItem("shiksha_homework") || "[]"),
-            leaveRequests: JSON.parse(localStorage.getItem("shiksha_leave_requests") || "[]"),
+            adminUser: safeJsonParse("shiksha_admin_user", DEFAULT_ADMIN),
+            registeredTeachers: safeJsonParse("shiksha_teachers", []),
+            students: safeJsonParse("shiksha_students", []),
+            holidays: safeJsonParse("shiksha_holidays", []),
+            attendanceLogs: safeJsonParse("shiksha_att_logs", {}),
+            behaviorLogs: safeJsonParse("shiksha_behavior_logs", []),
+            notices: safeJsonParse("shiksha_notices", []),
+            materials: safeJsonParse("shiksha_materials", []),
+            gallery: safeJsonParse("shiksha_gallery", []),
+            chatMessages: safeJsonParse("shiksha_chat_messages", []),
+            feePayments: safeJsonParse("shiksha_fee_payments", []),
+            timetable: safeJsonParse("shiksha_timetable", []),
+            homeworkDiary: safeJsonParse("shiksha_homework", []),
+            leaveRequests: safeJsonParse("shiksha_leave_requests", []),
             currentRole: null,
             currentUserPhone: null,
             currentStudentId: null,
@@ -891,9 +907,26 @@
             return (t && (t.name || t.faculty_name || t.facultyName)) ? String(t.name || t.faculty_name || t.facultyName).trim() : "Faculty Member";
         }
 
-        function fileToBase64(file) {
+        function generateNextStudentId() {
+            let maxNum = 0;
+            (STATE.students || []).forEach((s) => {
+                const rawId = getStuId(s);
+                const m = rawId.match(/(\d+)$/);
+                if (m) {
+                    const n = parseInt(m[1], 10);
+                    if (!isNaN(n) && n > maxNum) maxNum = n;
+                }
+            });
+            return "SCI-" + String(maxNum + 1).padStart(4, "0");
+        }
+
+        function fileToBase64(file, maxBytes = 600000) {
             return new Promise((resolve) => {
                 if (!file) return resolve("");
+                if (file.size > maxBytes) {
+                    alert("File/Photo size thoda bada hai (>600KB). Record save ho jayega, chhoti image/file select karen.");
+                    return resolve("");
+                }
                 const r = new FileReader();
                 r.onload = () => resolve(String(r.result || ""));
                 r.onerror = () => resolve("");
@@ -932,6 +965,7 @@
 
         function openModal(id) { document.getElementById(id)?.classList.remove("hidden"); }
         function closeModal(id) { document.getElementById(id)?.classList.add("hidden"); }
+        function closeBehaviorModal() { closeModal("modal-behavior-remark"); }
         function openLoginGateway() { openModal("modal-login-gateway"); }
         function openUpiQrModal() { openModal("modal-upi-qr"); }
         function copyUpiId() { navigator.clipboard?.writeText(COACHING_UPI_ID); alert("Copied: " + COACHING_UPI_ID); }
@@ -954,7 +988,7 @@
             const portalView = document.getElementById("view-portal");
             const mNav = document.getElementById("mobile-bottom-nav");
 
-            prevSection = !portalView.classList.contains("hidden") ? "portal" : "home";
+            prevSection = (portalView && !portalView.classList.contains("hidden")) ? "portal" : "home";
             mLogin?.classList.add("hidden");
             pubView?.classList.add("hidden"); pubView?.classList.remove("md:flex");
             facView?.classList.add("hidden");
@@ -1036,7 +1070,7 @@
             const sideNav = document.getElementById("desktop-sidebar-nav");
             if (sideNav) {
                 sideNav.innerHTML = items.map((i) => `
-                    <button onclick="switchPortalTab('${i.tab}')" id="side-tab-${i.tab}" class="sharp-btn w-full flex items-center gap-2.5 px-3 py-2.5 text-slate-300 hover:text-white hover:bg-slate-900 text-left">
+                    <button type="button" onclick="switchPortalTab('${i.tab}')" id="side-tab-${i.tab}" class="sharp-btn w-full flex items-center gap-2.5 px-3 py-2.5 text-slate-300 hover:text-white hover:bg-slate-900 text-left">
                         <i class="fa-solid ${i.icon} w-4"></i> <span>${i.label}</span>
                     </button>
                 `).join("");
@@ -1044,7 +1078,7 @@
             const mNav = document.getElementById("mobile-nav-grid");
             if (mNav) {
                 mNav.innerHTML = items.map((i) => `
-                    <button onclick="switchPortalTab('${i.tab}')" id="m-tab-${i.tab}" class="min-w-[60px] flex flex-col items-center justify-center text-slate-800 py-1">
+                    <button type="button" onclick="switchPortalTab('${i.tab}')" id="m-tab-${i.tab}" class="min-w-[60px] flex flex-col items-center justify-center text-slate-800 py-1">
                         <i class="fa-solid ${i.icon} text-sm"></i>
                         <span class="text-[10px] font-bold mt-0.5">${i.short}</span>
                     </button>
@@ -1053,14 +1087,14 @@
             const qGrid = document.getElementById("role-quick-menu-grid");
             if (qGrid) {
                 const cards = items.filter((i) => i.tab !== "home").map((i) => `
-                    <button onclick="switchPortalTab('${i.tab}')" class="sharp-btn p-3 bg-slate-50 hover:bg-blue-50 border border-slate-400 flex flex-col items-center justify-center gap-1.5 text-slate-900 font-bold text-xs">
+                    <button type="button" onclick="switchPortalTab('${i.tab}')" class="sharp-btn p-3 bg-slate-50 hover:bg-blue-50 border border-slate-400 flex flex-col items-center justify-center gap-1.5 text-slate-900 font-bold text-xs">
                         <i class="fa-solid ${i.icon} text-blue-700 text-base"></i>
                         <span>${i.label}</span>
                     </button>
                 `);
                 if (role === "admin") {
-                    cards.push(`<button onclick="openAddStudentModal()" class="sharp-btn p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-400 flex flex-col items-center justify-center gap-1.5 text-emerald-950 font-bold text-xs"><i class="fa-solid fa-user-plus text-emerald-700 text-base"></i><span>+ Add Student</span></button>`);
-                    cards.push(`<button onclick="openAddTeacherModal()" class="sharp-btn p-3 bg-amber-50 hover:bg-amber-100 border border-amber-400 flex flex-col items-center justify-center gap-1.5 text-amber-950 font-bold text-xs"><i class="fa-solid fa-chalkboard-user text-amber-700 text-base"></i><span>+ Add Faculty</span></button>`);
+                    cards.push(`<button type="button" onclick="openAddStudentModal()" class="sharp-btn p-3 bg-emerald-50 hover:bg-emerald-100 border border-emerald-400 flex flex-col items-center justify-center gap-1.5 text-emerald-950 font-bold text-xs"><i class="fa-solid fa-user-plus text-emerald-700 text-base"></i><span>+ Add Student</span></button>`);
+                    cards.push(`<button type="button" onclick="openAddTeacherModal()" class="sharp-btn p-3 bg-amber-50 hover:bg-amber-100 border border-amber-400 flex flex-col items-center justify-center gap-1.5 text-amber-950 font-bold text-xs"><i class="fa-solid fa-chalkboard-user text-amber-700 text-base"></i><span>+ Add Faculty</span></button>`);
                 }
                 qGrid.innerHTML = cards.join("");
             }
@@ -1085,7 +1119,6 @@
             if (tab === "leaves") renderLeaveRequests();
         }
 
-        // ================= CLOUD SYNC (PC APP COMPATIBLE) =================
         async function postToCloud(payload) {
             if (!SCRIPT_URL) return;
             try {
@@ -1094,7 +1127,9 @@
                     headers: { "Content-Type": "text/plain;charset=utf-8" },
                     body: JSON.stringify(payload)
                 });
-            } catch (err) { console.error("Sync push error:", err); }
+            } catch (err) {
+                console.warn("Cloud sync push skipped:", err);
+            }
         }
 
         async function fetchCloudDatabase(manual = false) {
@@ -1107,23 +1142,28 @@
                 const data = await res.json();
                 if (data) {
                     const rawStudents = Array.isArray(data.students) ? data.students : (Array.isArray(data.data?.students) ? data.data.students : null);
-                    if (rawStudents) {
-                        STATE.students = rawStudents.map((s) => ({
-                            ...s,
-                            id: getStuId(s),
-                            name: getStuName(s),
-                            class: getStuClass(s),
-                            board: getStuBoard(s),
-                            phone: cleanPhone(s.phone || s.father_phone || s.fatherPhone || ""),
-                            fatherName: s.fatherName || s.father_name || "",
-                            feePending: Number(s.feePending ?? s.fee_pending ?? s.monthly_fee ?? 0),
-                            admissionDate: s.admissionDate || s.admission_date || "",
-                            leavingDate: s.leavingDate || s.leaving_date || "",
-                            photo: s.photo || s.photo_data || ""
-                        }));
-                        localStorage.setItem("shiksha_students", JSON.stringify(STATE.students));
+                    if (rawStudents && rawStudents.length > 0) {
+                        const cloudMap = new Map();
+                        rawStudents.forEach((s) => {
+                            const norm = {
+                                ...s,
+                                id: getStuId(s),
+                                name: getStuName(s),
+                                class: getStuClass(s),
+                                board: getStuBoard(s),
+                                phone: cleanPhone(s.phone || s.father_phone || s.fatherPhone || ""),
+                                fatherName: s.fatherName || s.father_name || "",
+                                feePending: Number(s.feePending ?? s.fee_pending ?? s.monthly_fee ?? 0),
+                                admissionDate: s.admissionDate || s.admission_date || "",
+                                leavingDate: s.leavingDate || s.leaving_date || "",
+                                photo: s.photo || s.photo_data || ""
+                            };
+                            cloudMap.set(norm.id, norm);
+                        });
+                        STATE.students = Array.from(cloudMap.values());
+                        safeSaveLocal("shiksha_students", STATE.students);
                     }
-                    if (Array.isArray(data.teachers)) {
+                    if (Array.isArray(data.teachers) && data.teachers.length > 0) {
                         STATE.registeredTeachers = data.teachers.map((t) => ({
                             ...t,
                             name: getFacName(t),
@@ -1131,18 +1171,21 @@
                             subjects: t.subjects || t.qualification || "Faculty",
                             photo: t.photo || t.photo_data || ""
                         }));
-                        localStorage.setItem("shiksha_teachers", JSON.stringify(STATE.registeredTeachers));
+                        safeSaveLocal("shiksha_teachers", STATE.registeredTeachers);
                     }
-                    if (Array.isArray(data.notices)) { STATE.notices = data.notices; localStorage.setItem("shiksha_notices", JSON.stringify(STATE.notices)); }
-                    if (Array.isArray(data.materials)) { STATE.materials = data.materials; localStorage.setItem("shiksha_materials", JSON.stringify(STATE.materials)); }
-                    if (Array.isArray(data.gallery)) { STATE.gallery = data.gallery; localStorage.setItem("shiksha_gallery", JSON.stringify(STATE.gallery)); }
-                    if (Array.isArray(data.behaviorLogs)) { STATE.behaviorLogs = data.behaviorLogs; localStorage.setItem("shiksha_behavior_logs", JSON.stringify(STATE.behaviorLogs)); }
-                    if (Array.isArray(data.homeworkDiary)) { STATE.homeworkDiary = data.homeworkDiary; localStorage.setItem("shiksha_homework", JSON.stringify(STATE.homeworkDiary)); }
-                    if (Array.isArray(data.timetable)) { STATE.timetable = data.timetable; localStorage.setItem("shiksha_timetable", JSON.stringify(STATE.timetable)); }
-                    if (Array.isArray(data.leaveRequests)) { STATE.leaveRequests = data.leaveRequests; localStorage.setItem("shiksha_leave_requests", JSON.stringify(STATE.leaveRequests)); }
-                    if (Array.isArray(data.chatMessages)) { STATE.chatMessages = data.chatMessages; localStorage.setItem("shiksha_chat_messages", JSON.stringify(STATE.chatMessages)); }
-                    if (Array.isArray(data.feePayments)) { STATE.feePayments = data.feePayments; localStorage.setItem("shiksha_fee_payments", JSON.stringify(STATE.feePayments)); }
-                    if (data.attendanceLogs && typeof data.attendanceLogs === "object") { STATE.attendanceLogs = data.attendanceLogs; localStorage.setItem("shiksha_att_logs", JSON.stringify(STATE.attendanceLogs)); }
+                    if (Array.isArray(data.notices) && data.notices.length > 0) { STATE.notices = data.notices; safeSaveLocal("shiksha_notices", STATE.notices); }
+                    if (Array.isArray(data.materials) && data.materials.length > 0) { STATE.materials = data.materials; safeSaveLocal("shiksha_materials", STATE.materials); }
+                    if (Array.isArray(data.gallery) && data.gallery.length > 0) { STATE.gallery = data.gallery; safeSaveLocal("shiksha_gallery", STATE.gallery); }
+                    if (Array.isArray(data.behaviorLogs) && data.behaviorLogs.length > 0) { STATE.behaviorLogs = data.behaviorLogs; safeSaveLocal("shiksha_behavior_logs", STATE.behaviorLogs); }
+                    if (Array.isArray(data.homeworkDiary) && data.homeworkDiary.length > 0) { STATE.homeworkDiary = data.homeworkDiary; safeSaveLocal("shiksha_homework", STATE.homeworkDiary); }
+                    if (Array.isArray(data.timetable) && data.timetable.length > 0) { STATE.timetable = data.timetable; safeSaveLocal("shiksha_timetable", STATE.timetable); }
+                    if (Array.isArray(data.leaveRequests) && data.leaveRequests.length > 0) { STATE.leaveRequests = data.leaveRequests; safeSaveLocal("shiksha_leave_requests", STATE.leaveRequests); }
+                    if (Array.isArray(data.chatMessages) && data.chatMessages.length > 0) { STATE.chatMessages = data.chatMessages; safeSaveLocal("shiksha_chat_messages", STATE.chatMessages); }
+                    if (Array.isArray(data.feePayments) && data.feePayments.length > 0) { STATE.feePayments = data.feePayments; safeSaveLocal("shiksha_fee_payments", STATE.feePayments); }
+                    if (data.attendanceLogs && typeof data.attendanceLogs === "object" && Object.keys(data.attendanceLogs).length > 0) {
+                        STATE.attendanceLogs = data.attendanceLogs;
+                        safeSaveLocal("shiksha_att_logs", STATE.attendanceLogs);
+                    }
                 }
                 if (badge) badge.innerHTML = `<i class="fa-solid fa-circle-check text-[9px]"></i> <span>Synced</span>`;
                 renderAllViews();
@@ -1153,7 +1196,6 @@
             }
         }
 
-        // ================= LIVE ID CARD (86x54mm) & QR =================
         function drawQrCanvas(canvasId, txt) {
             const c = document.getElementById(canvasId); if (!c) return;
             const ctx = c.getContext("2d"), sz = 21, cell = Math.floor(c.width / sz);
@@ -1177,12 +1219,18 @@
             if (!s) return;
             const id = getStuId(s), name = getStuName(s), cls = getStuClass(s), brd = getStuBoard(s);
             const payload = `${id}|${name}|${cls}|${s.phone || ""}`;
-            document.getElementById("wid-reg").innerText = id;
-            document.getElementById("wid-name").innerText = name;
-            document.getElementById("wid-class").innerText = `Class: ${cls} (${brd})`;
-            document.getElementById("wid-father").innerText = `Father: ${s.fatherName || "-"}`;
-            document.getElementById("wid-phone").innerText = `Mob: ${s.phone || "-"}`;
-            document.getElementById("wid-qr-txt").innerText = payload;
+            const elReg = document.getElementById("wid-reg");
+            const elName = document.getElementById("wid-name");
+            const elClass = document.getElementById("wid-class");
+            const elFather = document.getElementById("wid-father");
+            const elPhone = document.getElementById("wid-phone");
+            const elQrTxt = document.getElementById("wid-qr-txt");
+            if (elReg) elReg.innerText = id;
+            if (elName) elName.innerText = name;
+            if (elClass) elClass.innerText = `Class: ${cls} (${brd})`;
+            if (elFather) elFather.innerText = `Father: ${s.fatherName || "-"}`;
+            if (elPhone) elPhone.innerText = `Mob: ${s.phone || "-"}`;
+            if (elQrTxt) elQrTxt.innerText = payload;
             const pBox = document.getElementById("wid-photo-box");
             if (pBox) pBox.innerHTML = s.photo ? `<img src="${s.photo}" class="w-full h-full object-cover">` : "PHOTO";
             drawQrCanvas("wid-qr-canvas", payload);
@@ -1191,11 +1239,11 @@
         function downloadWebIdCardPdf() {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF({ orientation: "landscape", unit: "mm", format: [86, 54] });
-            const reg = document.getElementById("wid-reg").innerText || "SCI-0001";
-            const name = document.getElementById("wid-name").innerText || "Student";
-            const cls = document.getElementById("wid-class").innerText || "";
-            const father = document.getElementById("wid-father").innerText || "";
-            const phone = document.getElementById("wid-phone").innerText || "";
+            const reg = document.getElementById("wid-reg")?.innerText || "SCI-0001";
+            const name = document.getElementById("wid-name")?.innerText || "Student";
+            const cls = document.getElementById("wid-class")?.innerText || "";
+            const father = document.getElementById("wid-father")?.innerText || "";
+            const phone = document.getElementById("wid-phone")?.innerText || "";
 
             doc.setFillColor(29, 78, 216); doc.rect(0, 0, 86, 12, "F");
             doc.setDrawColor(15, 23, 42); doc.setLineWidth(0.5); doc.rect(0.4, 0.4, 85.2, 53.2);
@@ -1212,18 +1260,26 @@
             doc.save(`ID_Card_${reg}.pdf`);
         }
 
-        // ================= STUDENTS, PERMANENT DELETE & BEHAVIOR =================
         function setStudentStatusFilter(f) { STATE.studentStatusFilter = f; renderStudents(); }
 
         function openAddStudentModal() {
             document.getElementById("edit-stu-id").value = "";
             document.getElementById("inp-stu-name").value = "";
+            document.getElementById("inp-stu-dob").value = "";
+            document.getElementById("inp-stu-school").value = "";
             document.getElementById("inp-stu-father").value = "";
-            document.getElementById("inp-stu-mother").value = "";
             document.getElementById("inp-stu-phone").value = "";
+            document.getElementById("inp-stu-focc").value = "";
+            document.getElementById("inp-stu-mother").value = "";
+            document.getElementById("inp-stu-mphone").value = "";
             document.getElementById("inp-stu-pwd").value = "1234";
+            document.getElementById("inp-stu-addr").value = "";
+            document.getElementById("inp-stu-sub").value = "";
+            document.getElementById("inp-stu-fee").value = "0";
             document.getElementById("inp-stu-adm-date").value = getTodayKey();
             document.getElementById("inp-stu-leave-date").value = "";
+            const fInp = document.getElementById("inp-stu-photo");
+            if (fInp) fInp.value = "";
             document.getElementById("btn-delete-student-modal").classList.add("hidden");
             openModal("modal-student");
         }
@@ -1259,49 +1315,64 @@
         }
 
         async function handleSaveStudent(e) {
-            e.preventDefault();
-            if (STATE.currentRole !== "admin") return;
-            const id = document.getElementById("edit-stu-id").value || generateNextStudentId();
-            const photoFile = document.getElementById("inp-stu-photo").files[0];
-            const photo = photoFile ? await fileToBase64(photoFile) : (STATE.students.find((x) => getStuId(x) === id)?.photo || "");
+            if (e && e.preventDefault) e.preventDefault();
+            if (STATE.currentRole !== "admin") {
+                alert("Pehle Admin login karein.");
+                return;
+            }
+            const nameVal = (document.getElementById("inp-stu-name")?.value || "").trim();
+            if (!nameVal) {
+                alert("Student Full Name required hai.");
+                return;
+            }
+            const id = (document.getElementById("edit-stu-id")?.value || "").trim() || generateNextStudentId();
+            const photoFile = document.getElementById("inp-stu-photo")?.files?.[0] || null;
+            const existingStu = STATE.students.find((x) => getStuId(x) === id);
+            const photo = photoFile ? await fileToBase64(photoFile) : (existingStu?.photo || "");
+
             const obj = {
-                id, reg_no: id,
-                name: document.getElementById("inp-stu-name").value.trim(),
-                full_name: document.getElementById("inp-stu-name").value.trim(),
-                gender: document.getElementById("inp-stu-gender").value,
-                dob: document.getElementById("inp-stu-dob").value,
-                school_name: document.getElementById("inp-stu-school").value.trim(),
-                class: document.getElementById("inp-stu-class").value,
-                student_class: document.getElementById("inp-stu-class").value,
-                board: document.getElementById("inp-stu-board").value,
-                fatherName: document.getElementById("inp-stu-father").value.trim(),
-                father_name: document.getElementById("inp-stu-father").value.trim(),
-                phone: cleanPhone(document.getElementById("inp-stu-phone").value),
-                father_occupation: document.getElementById("inp-stu-focc").value.trim(),
-                motherName: document.getElementById("inp-stu-mother").value.trim(),
-                mother_phone: cleanPhone(document.getElementById("inp-stu-mphone").value),
-                password: document.getElementById("inp-stu-pwd").value.trim(),
-                address: document.getElementById("inp-stu-addr").value.trim(),
-                subjects_ix_x: document.getElementById("inp-stu-sub").value.trim(),
-                feePending: Number(document.getElementById("inp-stu-fee").value || 0),
-                monthly_fee: Number(document.getElementById("inp-stu-fee").value || 0),
-                admissionDate: document.getElementById("inp-stu-adm-date").value,
-                leavingDate: document.getElementById("inp-stu-leave-date").value,
+                id,
+                reg_no: id,
+                name: nameVal,
+                full_name: nameVal,
+                gender: document.getElementById("inp-stu-gender")?.value || "Male",
+                dob: document.getElementById("inp-stu-dob")?.value || "",
+                school_name: (document.getElementById("inp-stu-school")?.value || "").trim(),
+                class: document.getElementById("inp-stu-class")?.value || "1st",
+                student_class: document.getElementById("inp-stu-class")?.value || "1st",
+                board: document.getElementById("inp-stu-board")?.value || "CBSE",
+                fatherName: (document.getElementById("inp-stu-father")?.value || "").trim(),
+                father_name: (document.getElementById("inp-stu-father")?.value || "").trim(),
+                phone: cleanPhone(document.getElementById("inp-stu-phone")?.value || ""),
+                father_occupation: (document.getElementById("inp-stu-focc")?.value || "").trim(),
+                motherName: (document.getElementById("inp-stu-mother")?.value || "").trim(),
+                mother_phone: cleanPhone(document.getElementById("inp-stu-mphone")?.value || ""),
+                password: (document.getElementById("inp-stu-pwd")?.value || "1234").trim(),
+                address: (document.getElementById("inp-stu-addr")?.value || "").trim(),
+                subjects_ix_x: (document.getElementById("inp-stu-sub")?.value || "").trim(),
+                feePending: Number(document.getElementById("inp-stu-fee")?.value || 0),
+                monthly_fee: Number(document.getElementById("inp-stu-fee")?.value || 0),
+                admissionDate: document.getElementById("inp-stu-adm-date")?.value || getTodayKey(),
+                leavingDate: document.getElementById("inp-stu-leave-date")?.value || "",
                 photo
             };
+
             const idx = STATE.students.findIndex((x) => getStuId(x) === id);
-            if (idx > -1) STATE.students[idx] = obj; else STATE.students.unshift(obj);
-            localStorage.setItem("shiksha_students", JSON.stringify(STATE.students));
+            if (idx > -1) STATE.students[idx] = obj;
+            else STATE.students.unshift(obj);
+
+            safeSaveLocal("shiksha_students", STATE.students);
             closeModal("modal-student");
             renderWebIdCard(obj);
             renderAllViews();
             await postToCloud({ action: "addStudent", student: obj });
+            alert(`${nameVal} (${id}) saved!`);
         }
 
         async function deleteStudentPermanent(id) {
             if (STATE.currentRole !== "admin" || !confirm("Permanently delete this student?")) return;
             STATE.students = STATE.students.filter((x) => getStuId(x) !== String(id));
-            localStorage.setItem("shiksha_students", JSON.stringify(STATE.students));
+            safeSaveLocal("shiksha_students", STATE.students);
             closeModal("modal-student");
             renderAllViews();
             await postToCloud({ action: "deleteStudent", studentId: id });
@@ -1326,7 +1397,7 @@
         }
 
         async function handleSaveBehaviorRemark(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const studentId = document.getElementById("beh-student-id").value;
             const studentName = document.getElementById("beh-student-name").value;
             const flag = document.getElementById("beh-flag-type").value;
@@ -1339,7 +1410,7 @@
                 dateKey: getTodayKey()
             };
             STATE.behaviorLogs.unshift(entry);
-            localStorage.setItem("shiksha_behavior_logs", JSON.stringify(STATE.behaviorLogs));
+            safeSaveLocal("shiksha_behavior_logs", STATE.behaviorLogs);
             closeModal("modal-behavior-remark");
             renderAllViews();
             await postToCloud({ action: "addBehaviorLog", log: entry });
@@ -1351,7 +1422,7 @@
             const isStaff = ["admin", "teacher"].includes(STATE.currentRole);
             const today = getTodayKey();
 
-            let list = STATE.students;
+            let list = STATE.students || [];
             if (STATE.currentRole === "parent") {
                 list = list.filter((s) => String(getStuId(s)).toLowerCase() === String(STATE.currentStudentId || "").toLowerCase());
                 if (list[0]) renderWebIdCard(list[0]);
@@ -1391,10 +1462,9 @@
             }).join("") || `<p class="col-span-full text-xs font-bold text-slate-700 p-4 bg-white rounded">No students found.</p>`;
         }
 
-        // ================= FACULTY & PERMANENT DELETE =================
         function getUniqueTeachers() {
             const seen = new Set();
-            return STATE.registeredTeachers.filter((t) => {
+            return (STATE.registeredTeachers || []).filter((t) => {
                 const p = cleanPhone(t.phone);
                 if (!getFacName(t) || p.length !== 10 || seen.has(p)) return false;
                 seen.add(p); return true;
@@ -1440,7 +1510,7 @@
         }
 
         async function handleSaveTeacher(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             if (STATE.currentRole !== "admin") return;
             const phone = cleanPhone(document.getElementById("inp-teach-phone").value);
             const photoFile = document.getElementById("inp-teach-photo").files[0];
@@ -1469,7 +1539,7 @@
             const idx = STATE.registeredTeachers.findIndex((x) => cleanPhone(x.phone) === phone);
             if (idx > -1) STATE.registeredTeachers[idx] = { ...STATE.registeredTeachers[idx], ...obj };
             else STATE.registeredTeachers.push(obj);
-            localStorage.setItem("shiksha_teachers", JSON.stringify(STATE.registeredTeachers));
+            safeSaveLocal("shiksha_teachers", STATE.registeredTeachers);
             closeModal("modal-teacher");
             renderAllViews();
             await postToCloud({ action: "addTeacher", teacher: obj });
@@ -1479,7 +1549,7 @@
             if (STATE.currentRole !== "admin" || !confirm("Permanently delete this faculty member?")) return;
             const p = cleanPhone(phone);
             STATE.registeredTeachers = STATE.registeredTeachers.filter((x) => cleanPhone(x.phone) !== p);
-            localStorage.setItem("shiksha_teachers", JSON.stringify(STATE.registeredTeachers));
+            safeSaveLocal("shiksha_teachers", STATE.registeredTeachers);
             closeModal("modal-teacher");
             renderAllViews();
             await postToCloud({ action: "deleteTeacher", phone: p });
@@ -1521,7 +1591,6 @@
             `).join("") || `<p class="text-xs text-slate-400">No faculty listed.</p>`;
         }
 
-        // ================= ATTENDANCE (P/A/L + BACK DATE + MONTHLY PDF + BG ALERT) =================
         function isHoliday(dk) {
             if (!dk) return null;
             const d = new Date(dk + "T00:00:00");
@@ -1533,7 +1602,7 @@
             const box = document.getElementById("att-class-chips");
             if (!box) return;
             box.innerHTML = ALL_CLASSES.map((c) => `
-                <button onclick="STATE.selectedAttClass='${c}'; renderAttendanceClassChips(); renderAttendanceList();" class="sharp-btn px-3 py-1.5 font-bold whitespace-nowrap ${c === STATE.selectedAttClass ? "bg-blue-600 text-white" : "bg-white text-slate-900 border border-slate-400"}">Class ${c}</button>
+                <button type="button" onclick="STATE.selectedAttClass='${c}'; renderAttendanceClassChips(); renderAttendanceList();" class="sharp-btn px-3 py-1.5 font-bold whitespace-nowrap ${c === STATE.selectedAttClass ? "bg-blue-600 text-white" : "bg-white text-slate-900 border border-slate-400"}">Class ${c}</button>
             `).join("");
         }
 
@@ -1545,7 +1614,7 @@
             if (!STATE.attendanceLogs[sid]) STATE.attendanceLogs[sid] = { daily: {} };
             if (!STATE.attendanceLogs[sid].daily) STATE.attendanceLogs[sid].daily = {};
             STATE.attendanceLogs[sid].daily[dt] = status;
-            localStorage.setItem("shiksha_att_logs", JSON.stringify(STATE.attendanceLogs));
+            safeSaveLocal("shiksha_att_logs", STATE.attendanceLogs);
             ["P", "A", "L"].forEach((o) => {
                 const dot = document.getElementById(`att-dot-${sid}-${o}`);
                 if (dot) { dot.classList.toggle("scale-100", o === status); dot.classList.toggle("scale-0", o !== status); }
@@ -1559,7 +1628,7 @@
             const hol = isHoliday(dt);
             if (hol) return alert(`Cannot submit on ${dt} (${hol}).`);
             STATE.attendanceLogs._activeMonth = dt.slice(0, 7);
-            localStorage.setItem("shiksha_att_logs", JSON.stringify(STATE.attendanceLogs));
+            safeSaveLocal("shiksha_att_logs", STATE.attendanceLogs);
             await postToCloud({ action: "saveAttendance", logs: STATE.attendanceLogs });
 
             const abs = STATE.students
@@ -1632,14 +1701,13 @@
 
         function openHolidayModal() { document.getElementById("inp-holiday-date").value = getTodayKey(); openModal("modal-holiday"); }
         async function handleSaveHoliday(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const h = { date: document.getElementById("inp-holiday-date").value, title: document.getElementById("inp-holiday-title").value.trim() };
-            STATE.holidays.push(h); localStorage.setItem("shiksha_holidays", JSON.stringify(STATE.holidays));
+            STATE.holidays.push(h); safeSaveLocal("shiksha_holidays", STATE.holidays);
             closeModal("modal-holiday"); renderAttendanceList();
             await postToCloud({ action: "addHoliday", holiday: h });
         }
 
-        // ================= FEES & ANALYTICS =================
         function renderFees() {
             const box = document.getElementById("fees-list-container");
             const faStu = document.getElementById("web-fa-stu");
@@ -1657,7 +1725,7 @@
                             <b class="text-xs sm:text-sm text-slate-950">${esc(getStuName(s))} (${esc(sid)})</b>
                             <div class="text-xs font-bold ${due > 0 ? "text-rose-700" : "text-emerald-700"}">Pending Due: ₹${due}</div>
                         </div>
-                        ${STATE.currentRole === "admin" ? `<button onclick="openCollectFeeModal('${sid}')" class="sharp-btn text-xs bg-emerald-600 text-white font-bold px-3 py-1.5">Collect Fee</button>` : ""}
+                        ${STATE.currentRole === "admin" ? `<button type="button" onclick="openCollectFeeModal('${sid}')" class="sharp-btn text-xs bg-emerald-600 text-white font-bold px-3 py-1.5">Collect Fee</button>` : ""}
                     </div>
                 `;
             }).join("") || `<p class="text-xs font-bold">No fee accounts.</p>`;
@@ -1673,7 +1741,7 @@
         }
 
         async function handleAdminCollectFee(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const sid = document.getElementById("fee-modal-stu-id").value;
             const amt = Number(document.getElementById("fee-modal-amount").value || 0);
             const mode = document.getElementById("fee-modal-mode").value;
@@ -1686,8 +1754,8 @@
                 months: months.join(", ") || getMonthKey(), amount: amt, mode, date: getTodayKey()
             };
             STATE.feePayments.unshift(rec);
-            localStorage.setItem("shiksha_fee_payments", JSON.stringify(STATE.feePayments));
-            localStorage.setItem("shiksha_students", JSON.stringify(STATE.students));
+            safeSaveLocal("shiksha_fee_payments", STATE.feePayments);
+            safeSaveLocal("shiksha_students", STATE.students);
             closeModal("modal-collect-fee");
             renderAllViews();
             await postToCloud({ action: "recordFeePayment", payment: rec });
@@ -1745,7 +1813,6 @@
             doc.save(`SHIKSHA_Fee_Report_${getTodayKey()}.pdf`);
         }
 
-        // ================= APP-TO-APP CALL + CHAT =================
         function startAppCall(peerName, peerRole) {
             if (STATE.currentRole !== "admin" && String(peerRole).toLowerCase() === "admin") {
                 return alert("Calling Admin is not permitted.");
@@ -1836,7 +1903,7 @@
         }
 
         async function handleSendChatMessage(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             if (!STATE.activeChatTarget) return alert("Select a contact first.");
             const inp = document.getElementById("chat-message-input");
             const txt = inp.value.trim(); if (!txt) return;
@@ -1849,15 +1916,14 @@
                 time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
             };
             STATE.chatMessages.push(msg);
-            localStorage.setItem("shiksha_chat_messages", JSON.stringify(STATE.chatMessages));
+            safeSaveLocal("shiksha_chat_messages", STATE.chatMessages);
             inp.value = "";
             renderChatMessages();
             await postToCloud({ action: "sendChatMessage", msg });
         }
 
-        // ================= HOMEWORK, TIMETABLE, LEAVES, NOTES & GALLERY =================
         async function saveHomeworkEntry(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             if (!["admin", "teacher"].includes(STATE.currentRole)) return;
             const file = document.getElementById("hw-file").files[0];
             const fileData = file ? await fileToBase64(file) : "";
@@ -1872,7 +1938,7 @@
                 fileData
             };
             STATE.homeworkDiary.unshift(h);
-            localStorage.setItem("shiksha_homework", JSON.stringify(STATE.homeworkDiary));
+            safeSaveLocal("shiksha_homework", STATE.homeworkDiary);
             e.target.reset();
             renderHomeworkDiary();
             await postToCloud({ action: "addHomework", homework: h });
@@ -1899,7 +1965,7 @@
         }
 
         async function saveTimetableEntry(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             if (STATE.currentRole !== "admin") return;
             const t = {
                 id: "TT-" + Date.now(),
@@ -1911,7 +1977,7 @@
                 teacher: document.getElementById("tt-teacher").value || "Faculty"
             };
             STATE.timetable.push(t);
-            localStorage.setItem("shiksha_timetable", JSON.stringify(STATE.timetable));
+            safeSaveLocal("shiksha_timetable", STATE.timetable);
             e.target.reset();
             renderTimetable();
             await postToCloud({ action: "saveTimetableEntry", entry: t });
@@ -1927,20 +1993,20 @@
             box.innerHTML = list.map((t) => `
                 <div class="sharp-btn p-3 bg-slate-50 border border-slate-400 flex items-center justify-between text-xs">
                     <div><b>${esc(t.day)} • Class ${esc(t.class)} • ${esc(t.subject)}</b><div class="text-slate-700">${esc(t.startTime)}–${esc(t.endTime)} • ${esc(t.teacher)}</div></div>
-                    ${STATE.currentRole === "admin" ? `<button onclick="deleteTimetableSlot('${t.id}')" class="text-rose-700 font-bold text-xs">Remove</button>` : ""}
+                    ${STATE.currentRole === "admin" ? `<button type="button" onclick="deleteTimetableSlot('${t.id}')" class="text-rose-700 font-bold text-xs">Remove</button>` : ""}
                 </div>
             `).join("") || `<p class="text-xs text-slate-600">No timetable slots.</p>`;
         }
 
         async function deleteTimetableSlot(id) {
             STATE.timetable = STATE.timetable.filter((x) => x.id !== id);
-            localStorage.setItem("shiksha_timetable", JSON.stringify(STATE.timetable));
+            safeSaveLocal("shiksha_timetable", STATE.timetable);
             renderTimetable();
             await postToCloud({ action: "deleteTimetableEntry", id });
         }
 
         async function submitLeaveRequest(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const selId = document.getElementById("leave-stu-select")?.value || STATE.currentStudentId || "";
             const stu = STATE.students.find((x) => String(getStuId(x)) === String(selId));
             const reqObj = {
@@ -1954,7 +2020,7 @@
                 status: "Pending"
             };
             STATE.leaveRequests.unshift(reqObj);
-            localStorage.setItem("shiksha_leave_requests", JSON.stringify(STATE.leaveRequests));
+            safeSaveLocal("shiksha_leave_requests", STATE.leaveRequests);
             e.target.reset();
             renderLeaveRequests();
             await postToCloud({ action: "addLeaveRequest", leave: reqObj });
@@ -1976,10 +2042,10 @@
                     STATE.attendanceLogs[lv.studentId].daily[dk] = "L";
                     cur.setDate(cur.getDate() + 1);
                 }
-                localStorage.setItem("shiksha_att_logs", JSON.stringify(STATE.attendanceLogs));
+                safeSaveLocal("shiksha_att_logs", STATE.attendanceLogs);
                 await postToCloud({ action: "saveAttendance", logs: STATE.attendanceLogs });
             }
-            localStorage.setItem("shiksha_leave_requests", JSON.stringify(STATE.leaveRequests));
+            safeSaveLocal("shiksha_leave_requests", STATE.leaveRequests);
             renderAllViews();
             await postToCloud({ action: "updateLeaveRequest", leave: lv });
         }
@@ -1998,8 +2064,8 @@
                     <div><b>${esc(l.studentName || "Student")}</b> (${esc(l.fromDate)} to ${esc(l.toDate)}) — ${esc(l.reason)} • <span class="font-black ${l.status === "Approved" ? "text-emerald-700" : (l.status === "Rejected" ? "text-rose-700" : "text-amber-700")}">${esc(l.status)}</span></div>
                     ${["admin", "teacher"].includes(STATE.currentRole) ? `
                         <div class="flex gap-1.5">
-                            <button onclick="updateLeaveStatus('${l.id}','Approved')" class="sharp-btn px-2.5 py-1 bg-emerald-600 text-white font-bold">Approve (Auto L)</button>
-                            <button onclick="updateLeaveStatus('${l.id}','Rejected')" class="sharp-btn px-2.5 py-1 bg-rose-600 text-white font-bold">Reject</button>
+                            <button type="button" onclick="updateLeaveStatus('${l.id}','Approved')" class="sharp-btn px-2.5 py-1 bg-emerald-600 text-white font-bold">Approve (Auto L)</button>
+                            <button type="button" onclick="updateLeaveStatus('${l.id}','Rejected')" class="sharp-btn px-2.5 py-1 bg-rose-600 text-white font-bold">Reject</button>
                         </div>
                     ` : ""}
                 </div>
@@ -2008,7 +2074,7 @@
 
         function openAddNoteModal() { openModal("modal-add-note"); }
         async function handleSaveNote(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const file = document.getElementById("inp-note-file").files[0];
             let link = document.getElementById("inp-note-url").value.trim();
             let fileName = file ? file.name : "";
@@ -2023,7 +2089,7 @@
                 date: new Date().toLocaleDateString("en-IN")
             };
             STATE.materials.unshift(note);
-            localStorage.setItem("shiksha_materials", JSON.stringify(STATE.materials));
+            safeSaveLocal("shiksha_materials", STATE.materials);
             e.target.reset();
             closeModal("modal-add-note");
             renderNotes();
@@ -2055,7 +2121,7 @@
         }
 
         async function handleSaveGalleryItem(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             if (STATE.currentRole !== "admin") return;
             const file = document.getElementById("gal-file-input").files[0];
             let url = document.getElementById("gal-url-input").value.trim();
@@ -2071,7 +2137,7 @@
                 date: new Date().toLocaleDateString("en-IN")
             };
             STATE.gallery.unshift(item);
-            localStorage.setItem("shiksha_gallery", JSON.stringify(STATE.gallery));
+            safeSaveLocal("shiksha_gallery", STATE.gallery);
             e.target.reset();
             closeModal("modal-upload-gallery");
             renderGallery();
@@ -2086,7 +2152,7 @@
             if (!chips || !grid) return;
 
             const folders = ["All", ...new Set(STATE.gallery.map((g) => g.folder || "Campus"))];
-            chips.innerHTML = folders.map((f) => `<button onclick="STATE.selectedGalleryFolder='${f}'; renderGallery();" class="sharp-btn px-3 py-1 font-bold ${STATE.selectedGalleryFolder === f ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-200"}">${esc(f)}</button>`).join("");
+            chips.innerHTML = folders.map((f) => `<button type="button" onclick="STATE.selectedGalleryFolder='${f}'; renderGallery();" class="sharp-btn px-3 py-1 font-bold ${STATE.selectedGalleryFolder === f ? "bg-blue-600 text-white" : "bg-slate-800 text-slate-200"}">${esc(f)}</button>`).join("");
 
             const list = STATE.selectedGalleryFolder === "All" ? STATE.gallery : STATE.gallery.filter((g) => (g.folder || "Campus") === STATE.selectedGalleryFolder);
             grid.innerHTML = list.map((g) => `
@@ -2102,9 +2168,9 @@
 
         function openAddNoticeModal() { openModal("modal-add-notice"); }
         async function handleSaveNotice(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const n = { id: Date.now(), title: document.getElementById("inp-notice-title").value.trim(), tag: document.getElementById("inp-notice-tag").value, desc: document.getElementById("inp-notice-desc").value.trim(), date: new Date().toLocaleDateString("en-IN") };
-            STATE.notices.unshift(n); localStorage.setItem("shiksha_notices", JSON.stringify(STATE.notices));
+            STATE.notices.unshift(n); safeSaveLocal("shiksha_notices", STATE.notices);
             e.target.reset(); closeModal("modal-add-notice"); renderNotices();
             await postToCloud({ action: "addNotice", notice: n });
         }
@@ -2125,7 +2191,7 @@
         }
 
         function generateStudentProgressPdf(e) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const sid = document.getElementById("pdf-student-select").value;
@@ -2143,7 +2209,7 @@
         }
 
         async function handleSecureLogin(e, mode) {
-            e.preventDefault();
+            if (e && e.preventDefault) e.preventDefault();
             const p = mode === "mobile" ? "m-" : "d-";
             const phone = document.getElementById(`${p}login-mobile`).value.trim();
             const pwd = document.getElementById(`${p}login-password`).value.trim();
@@ -2191,9 +2257,11 @@
             STATE.currentRole = role;
             STATE.currentUserPhone = phone;
             STATE.currentStudentId = studentId || localStorage.getItem("shiksha_auth_student_id");
-            localStorage.setItem("shiksha_auth_role", role);
-            if (phone) localStorage.setItem("shiksha_auth_phone", phone);
-            if (studentId) localStorage.setItem("shiksha_auth_student_id", studentId);
+            try {
+                localStorage.setItem("shiksha_auth_role", role);
+                if (phone) localStorage.setItem("shiksha_auth_phone", phone);
+                if (studentId) localStorage.setItem("shiksha_auth_student_id", studentId);
+            } catch (_) {}
 
             document.getElementById("btn-header-login")?.classList.add("hidden");
             const badge = document.getElementById("portal-user-badge");
@@ -2222,9 +2290,11 @@
         }
 
         function logout() {
-            localStorage.removeItem("shiksha_auth_role");
-            localStorage.removeItem("shiksha_auth_phone");
-            localStorage.removeItem("shiksha_auth_student_id");
+            try {
+                localStorage.removeItem("shiksha_auth_role");
+                localStorage.removeItem("shiksha_auth_phone");
+                localStorage.removeItem("shiksha_auth_student_id");
+            } catch (_) {}
             STATE.currentRole = null; STATE.currentUserPhone = null; STATE.currentStudentId = null;
             document.getElementById("btn-header-login")?.classList.remove("hidden");
             document.getElementById("portal-user-badge")?.classList.add("hidden");
@@ -2233,7 +2303,7 @@
 
         function updateKpis() {
             const dt = document.getElementById("att-target-date")?.value || getTodayKey();
-            const active = STATE.students.filter((s) => !s.leavingDate || s.leavingDate > dt);
+            const active = (STATE.students || []).filter((s) => !s.leavingDate || s.leavingDate > dt);
             if (document.getElementById("kpi-total-students")) document.getElementById("kpi-total-students").innerText = active.length;
             if (document.getElementById("pub-stat-students")) document.getElementById("pub-stat-students").innerText = active.length;
             if (document.getElementById("pub-stat-teachers")) document.getElementById("pub-stat-teachers").innerText = getUniqueTeachers().length;
@@ -2289,9 +2359,13 @@
             const dtInp = document.getElementById("att-target-date");
             if (dtInp && !dtInp.value) dtInp.value = getTodayKey();
 
-            const role = localStorage.getItem("shiksha_auth_role");
-            const phone = localStorage.getItem("shiksha_auth_phone");
-            const sid = localStorage.getItem("shiksha_auth_student_id");
+            let role = null, phone = null, sid = null;
+            try {
+                role = localStorage.getItem("shiksha_auth_role");
+                phone = localStorage.getItem("shiksha_auth_phone");
+                sid = localStorage.getItem("shiksha_auth_student_id");
+            } catch (_) {}
+
             if (role === "admin") authorizeRole("admin", phone);
             else if (role === "teacher" && phone) authorizeRole("teacher", phone);
             else if (role === "parent" && sid) authorizeRole("parent", phone, sid);
